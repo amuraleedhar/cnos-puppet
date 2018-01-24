@@ -1,0 +1,3 @@
+fixtures:
+  symlinks:
+    "cnos": "#{source_dir}"
