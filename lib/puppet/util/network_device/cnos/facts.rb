@@ -33,7 +33,8 @@ class Puppet::Util::NetworkDevice::cnos::Facts
       facts[fact] = result[fact.to_s]
     end
 
-    # Map F5 names to expected standard names.
+    # starting the facts module with switch type and firmware version.
+    #Need to figure out how to call multiiple URLs to furnish all details provided by others
     facts[:switch_type]            = facts[:switch_type]
     facts[:fw_version]             = facts[:fw_version]
     return facts
