@@ -2,12 +2,14 @@ require 'puppet/util/network_device'
 require 'puppet/util/network_device/transport'
 require 'puppet/util/network_device/transport/base'
 
-class Puppet::Util::NetworkDevice::Transport::cnos < Puppet::Util::NetworkDevice::Transport::Base
+class Puppet::Util::NetworkDevice::Transport::Cnos < Puppet::Util::NetworkDevice::Transport::Base
   attr_reader :connection
 
   def initialize(url, _options = {})
-    require 'cnos-rbapi'
-    @connection = Connect.new(url: url, ssl: { verify: false })
+    require 'faraday'
+    @connection = Faraday.new(url: url, ssl: { verify: false })
+    #require 'cnos-rbapi'
+    #@connection = Connect.new(url: url, ssl: { verify: false })
   end
 
   def call(url, args={})
