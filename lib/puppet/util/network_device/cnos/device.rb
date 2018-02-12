@@ -28,5 +28,4 @@ class Puppet::Util::NetworkDevice::Cnos::Device
 
     return @facts.retrieve
   end
-
 end
