@@ -6,16 +6,59 @@ class Puppet::Util::NetworkDevice::Transport::Cnos < Puppet::Util::NetworkDevice
   attr_reader :connection
 
   def initialize(url, _options = {})
-    require 'faraday'
-    @connection = Faraday.new(url: url, ssl: { verify: false })
-    #require 'cnos-rbapi'
-    #@connection = Connect.new(url: url, ssl: { verify: false })
+    Puppet.notice("url = #{url}")
+    #require 'faraday'
+
+    #@connection = Faraday.new(url: url, ssl: { verify: false })
+    #@connection.basic_auth("admin", "admin")
+    require 'cnos-rbapi'
+    array = url.split(/:/)
+    transport = array[0]
+    username = array[1]
+    username = username[2,username.length]
+    innerarray = array[2].split(/@/)
+    password = innerarray[0]
+    switchIP = innerarray[1]
+    if( switchIP.chars.last == '/')
+       switchIP = switchIP[0, switchIP.length-1]
+    end
+    portnumber = '443'
+    if( array [3] != nil)
+       portnumber = array [3]
+       if( portnumber.chars.last == '/')
+          portnumber = portnumber[0, portnumber.length-1]
+       end
+    end
+    params = Hash.new
+    params['transport'] = transport
+    params['port'] = portnumber
+    params['ip'] = switchIP
+    params['user'] = username
+    params['password'] = password
+    #params = {"transport" => "https", "port" => 443, "ip" => "10.241.107.39", "user" => "admin", "password" => "admin"}
+    #@connection = Connect.new(params: params, ssl:{ verify: false })
+    @connection = Connect.new(params)
   end
 
   def call(url, args={})
-    result = connection.get(url, args)
-    JSON.parse(result.body)
-  rescue JSON::ParserError
+    #Puppet.notice("connection = #{connection.inspect}")
+   #result = connection.get(url, args)
+    #JSON.parse(result.body)
+    #Puppet.notice("result = #{result.inspect}")
+    begin
+      Puppet.notice("connection = #{@connection.inspect}")
+      result = @connection.getFacts(url, args)
+      Puppet.notice("result  = #{result}")
+      #JSON.parse(result.body)
+      response = JSON.parse(result)
+      Puppet.notice("response  = #{response}")
+      Puppet.notice("result = #{result.inspect}")
+      return response
+    rescue Exception => e
+      Puppet.notice("Error Message = #{e.message}")
+      Puppet.notice("Backtrace = #{e.backtrace.inspect}")
+    end
+    rescue JSON::ParserError
     # This should be better at handling errors
     return nil
   end
