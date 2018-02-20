@@ -34,14 +34,17 @@ Puppet::Type.newtype(:cnos_vlan) do
         fail "value not within limit (2-3999)"
       end
     end
+    isnamevar
   end
 
   # Properties
-  newproperty(:vlan_name) do
+  #newproperty(:vlan_name) do
+  newparam(:vlan_name) do
     desc 'string 32 characters long'
   end
 
-  newproperty(:admin_state) do
+  #newproperty(:admin_state) do
+  newparam(:admin_state) do
     desc 'one of up or down'
   end
 end
