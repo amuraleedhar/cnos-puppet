@@ -10,7 +10,6 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-#require 'lenovo-rbapi'
 require 'cnos-rbapi/vlan'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
@@ -22,7 +21,6 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
   #confine operatingsystem: [:ubuntu]
 
   #mk_resource_methods
-  #conn = Connect.new('./cnos/config.yml')
 
   def self.instances
     instances = []
@@ -34,7 +32,6 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
     #resp = Puppet::Provider::Cnos.call("/nos/api/cfg/vlan")
     #Puppet.notice("Vlans are "+vlans.to_s)
     return [] if vlans.nil?
-    #return 'no vlans' if !resp
     vlans.each do |item|
       Puppet.notice("Vlan Id is "+ item['vlan_id'].to_s)
       Puppet.notice("Vlan name is "+ item['vlan_name'].to_s)
@@ -49,15 +46,14 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
   end
 
   def self.prefetch(resources)
-    #Puppet.notice("I am coming prefetch"+resources.to_s)
+    Puppet.notice("I am coming prefetch")
     vlans = instances
-    Puppet.notice("I am coming prefetch"+vlans.to_s)
-    Puppet.notice("I am coming prefetch"+resources.keys.to_s)
+    Puppet.notice("prefetch vlans "+vlans.to_s)
+    Puppet.notice("prefetch resource keys"+resources.keys.to_s)
     resources.keys.each do |name|
-      #if provider = nodes.find { |vlan| nodes.name == name }
-      Puppet.notice("I am coming prefetch"+ vlans.first.to_s)
+      Puppet.notice("prefetch vlan "+ vlans.first.to_s)
       if provider = vlans.find { |vlan| vlan.name == name }
-        Puppet.notice("The data coming here is"+provider)
+        Puppet.notice("Prefetch data coming here is"+provider)
         resources[name].provider = provider
       end
     end
