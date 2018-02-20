@@ -10,7 +10,6 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-require 'cnos-rbapi/vlan'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
@@ -24,12 +23,10 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
 
   def self.instances
     instances = []
-    vlan_total = {}
     #conn = Connect.new('./cnos/config.yml')
     #resp = Vlan.get_all_vlan(conn)
     #resp = get_all_vlan()
     vlans = Puppet::Provider::Cnos.call_items("/nos/api/cfg/vlan")
-    #resp = Puppet::Provider::Cnos.call("/nos/api/cfg/vlan")
     #Puppet.notice("Vlans are "+vlans.to_s)
     return [] if vlans.nil?
     vlans.each do |item|
@@ -42,11 +39,10 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
                        admin_state: item['admin_state'])
     end
     return instances
-
   end
 
   def self.prefetch(resources)
-    Puppet.notice("I am coming prefetch")
+    Puppet.notice("I am inside prefetch")
     vlans = instances
     Puppet.notice("prefetch vlans "+vlans.to_s)
     Puppet.notice("prefetch resource keys"+resources.keys.to_s)
@@ -60,7 +56,7 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
   end
 
   def flush
-    Puppet.notice("I am coming flush")
+    Puppet.notice("I am inside flush")
     params = {}
     if @property_hash != {}
       #conn = Connect.new('./cnos/config.yml')
@@ -71,28 +67,31 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
         params['admin_state'] = resource[:admin_state]
       end
       #resp = Vlan.update_vlan(conn, resource[:vlan_id], params)
+      resp = Puppet::Provider::Cnos.update_vlan(resource[:vlan_id].to_i, params)
     end
     @property_hash = resource.to_hash
   end
 
   def create
     #conn = Connect.new('./cnos/config.yml')
-    Puppet.notice("I am coming create")
+    Puppet.notice("I am inside create")
     params = { "vlan_id" => resource[:vlan_id].to_i,
                "vlan_name" => resource[:vlan_name],
                "admin_state" => resource[:admin_state] }
     #Vlan.create_vlan(conn, params)
+    resp = Puppet::Provider::Cnos.create_vlan(params)
     @property_hash.clear
   end
 
   def exists?
-    Puppet.notice("I am coming exists")
+    Puppet.notice("I am inside exists")
     @property_hash[:ensure] == :present
   end
 
   def destroy
-    Puppet.notice("I am coming destroy")
+    Puppet.notice("I am inside destroy"+ :vlan_id.to_s)
     #Vlan.delete_vlan(conn, resource[:vlan_id])
+    resp = Puppet::Provider::Cnos.delete_vlan(resource[:vlan_id].to_i)
     @property_hash.clear
   end
 end
