@@ -26,9 +26,26 @@ class Puppet::Provider::Cnos < Puppet::Provider
     transport.connection
   end
 
-  def self.get_all_vlan()
-    #return Vlan.get_all_vlan(transport.connection)
+   def self.get_all_vlan()
+    resp = Vlan.get_all_vlan(connection)
+    return resp
 
+  end
+
+  def self.create_vlan(params)
+    resp = Vlan.create_vlan(connection, params)
+    #Puppet.notice("Reaching here :"+resp)
+    return resp
+  end
+
+  def self.update_vlan(vlan_id, params)
+    resp = Vlan.update_vlan(connection,vlan_id, params)
+    return resp
+  end
+
+  def self.delete_vlan(vlan_id)
+    resp = Vlan.delete_vlan(connection, vlan_id)
+    return resp
   end
 
   def self.call(url,args={})
