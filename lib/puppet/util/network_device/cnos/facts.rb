@@ -20,7 +20,7 @@ class Puppet::Util::NetworkDevice::Cnos::Facts
     }
     if response = @transport.call('/nos/api/system/')
       #result = items.first
-      Puppet.notice("response  = #{response}")
+      Puppet.debug("response  = #{response}")
       result = response
     else
       Puppet.warning("Did not receive device details. CNOS REST requires Administrator level access.")
@@ -30,7 +30,7 @@ class Puppet::Util::NetworkDevice::Cnos::Facts
     [ :switch_type,
       :fw_version
     ].each do |fact|
-      #Puppet.notice("response  = #{result[fact.to_s]}")
+      #Puppet.debug("response  = #{result[fact.to_s]}")
       facts[fact] = result[fact.to_s]
     end
 
@@ -39,8 +39,8 @@ class Puppet::Util::NetworkDevice::Cnos::Facts
     facts[:fw_version]             = facts[:fw_version]
 
     facts.each do |key, value|
-       Puppet.notice("key  = #{key}")
-       Puppet.notice("value  = #{value}")
+       Puppet.debug("key  = #{key}")
+       Puppet.debug("value  = #{value}")
     end
     return facts
   end
