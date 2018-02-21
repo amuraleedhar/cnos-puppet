@@ -34,7 +34,7 @@ class Puppet::Provider::Cnos < Puppet::Provider
 
   def self.create_vlan(params)
     resp = Vlan.create_vlan(connection, params)
-    #Puppet.notice("Reaching here :"+resp)
+    #Puppet.debug("Reaching here :"+resp)
     return resp
   end
 
@@ -54,7 +54,7 @@ class Puppet::Provider::Cnos < Puppet::Provider
 
   def self.call_items(url,args={'expandSubcollections'=>'true'})
     if call = transport.call(url,args)
-      #Puppet.notice("Reaching here"+call)
+      #Puppet.debug("Reaching here"+call)
       call
       #call['item']
     else
