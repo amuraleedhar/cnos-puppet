@@ -6,7 +6,7 @@ class Puppet::Util::NetworkDevice::Transport::Cnos < Puppet::Util::NetworkDevice
   attr_reader :connection
 
   def initialize(url, _options = {})
-    Puppet.notice("url = #{url}")
+    Puppet.debug("url = #{url}")
     #require 'faraday'
 
     #@connection = Faraday.new(url: url, ssl: { verify: false })
@@ -41,22 +41,22 @@ class Puppet::Util::NetworkDevice::Transport::Cnos < Puppet::Util::NetworkDevice
   end
 
   def call(url, args={})
-    #Puppet.notice("connection = #{connection.inspect}")
+    #Puppet.debug("connection = #{connection.inspect}")
    #result = connection.get(url, args)
     #JSON.parse(result.body)
-    #Puppet.notice("result = #{result.inspect}")
+    #Puppet.debug("result = #{result.inspect}")
     begin
-      Puppet.notice("connection = #{@connection.inspect}")
+      Puppet.debug("connection = #{@connection.inspect}")
       result = @connection.getFacts(url, args)
-      Puppet.notice("result  = #{result}")
+      Puppet.debug("result  = #{result}")
       #JSON.parse(result.body)
       response = JSON.parse(result)
-      Puppet.notice("response  = #{response}")
-      Puppet.notice("result = #{result.inspect}")
+      Puppet.debug("response  = #{response}")
+      Puppet.debug("result = #{result.inspect}")
       return response
     rescue Exception => e
-      Puppet.notice("Error Message = #{e.message}")
-      Puppet.notice("Backtrace = #{e.backtrace.inspect}")
+      Puppet.debug("Error Message = #{e.message}")
+      Puppet.debug("Backtrace = #{e.backtrace.inspect}")
     end
     rescue JSON::ParserError
     # This should be better at handling errors
