@@ -26,7 +26,30 @@ class Puppet::Provider::Cnos < Puppet::Provider
     transport.connection
   end
 
-   def self.get_all_vlan()
+  # VRRP Methods start here
+  def self.get_vrrp_prop_all()
+    resp = Vrrp.get_vrrp_prop_all(connection)
+    return resp
+  end
+
+  def self.create_vrrp_intf(if_name, params)
+    resp = Vrrp.create_vrrp_intf(connection, if_name, params)
+    return resp
+  end
+
+  def self.update_vrrp_intf_vrid(if_name,vr_id, params)
+    resp = Vrrp.update_vrrp_intf_vrid(connection, if_name, vr_id, params)
+    return resp
+  end
+
+  def self.del_vrrp_intf_vrid(if_name, vr_id)
+    resp = Vrrp.del_vrrp_intf_vrid(connection, if_name, vr_id)
+    return resp
+  end
+
+  # VLAN Methods Starts here
+
+  def self.get_all_vlan()
     resp = Vlan.get_all_vlan(connection)
     return resp
 
