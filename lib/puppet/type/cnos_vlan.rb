@@ -11,17 +11,18 @@
 
 Puppet::Type.newtype(:cnos_vlan) do
   desc ' = {
- 	    Manage Vlans on Lenovo cnos.
+            Manage Vlans on Lenovo cnos.
 
- 	    Example:
- 	     cnos_vlan {1:
-		     vlan_name => vlan1,
-		     admin_state => up,
+            Example:
+             cnos_vlan {1:
+                     vlan_name => vlan1,
+                     admin_state => up,
               }
            }'
   ensurable
 
   # Parameters
+  #newproperty(:vlan_id, namevar: true) do
   newparam(:vlan_id, namevar: true) do
     desc 'vlan_id an integer from 2-3999'
 
@@ -39,7 +40,7 @@ Puppet::Type.newtype(:cnos_vlan) do
 
   # Properties
   newproperty(:vlan_name) do
-  #newparam(:vlan_name) do
+ # newparam(:vlan_name) do
     desc 'string 32 characters long'
   end
 
