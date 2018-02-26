@@ -14,12 +14,12 @@ require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
 
-Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
+Puppet::Type.type(:cnos_vlan).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage Vlan on Lenovo CNOS. Requires cnos-rbapi'
 
   #confine operatingsystem: [:ubuntu]
 
-  #mk_resource_methods
+  mk_resource_methods
 
   def self.instances
     instances = []
@@ -33,7 +33,8 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
       Puppet.debug("Vlan Id is "+ item['vlan_id'].to_s)
       Puppet.debug("Vlan name is "+ item['vlan_name'].to_s)
       Puppet.debug("Admin State is "+ item['admin_state'].to_s)
-      instances << new(name: item['vlan_id'].to_s,
+      #instances << new(name: item['vlan_id'].to_s,
+      instances << new(vlan_id: item['vlan_id'].to_s,
                        vlan_name: item['vlan_name'],
                        ensure: :present,
                        admin_state: item['admin_state'])
@@ -46,11 +47,12 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
     vlans = instances
     Puppet.debug("prefetch vlans "+vlans.to_s)
     Puppet.debug("prefetch resource keys"+resources.keys.to_s)
-    resources.keys.each do |name|
+    #resources.keys.each do |name|
+    resources.keys.each do |vlan_id|
       Puppet.debug("prefetch vlan "+ vlans.first.to_s)
-      if provider = vlans.find { |vlan| vlan.name == name }
+      if provider = vlans.find { |vlan| vlan.vlan_id == vlan_id }
         Puppet.debug("Prefetch data coming here is #{provider}")
-        resources[name].provider = provider
+        resources[vlan_id].provider = provider
       end
     end
   end
@@ -74,7 +76,7 @@ Puppet::Type.type(:cnos_vlan).provide(:vlan, parent: Puppet::Provider::Cnos) do
 
   def create
     #conn = Connect.new('./cnos/config.yml')
-    Puppet.debug("I am inside create")
+    Puppet.notice("I am inside create")
     params = { "vlan_id" => resource[:vlan_id].to_i,
                "vlan_name" => resource[:vlan_name],
                "admin_state" => resource[:admin_state] }
