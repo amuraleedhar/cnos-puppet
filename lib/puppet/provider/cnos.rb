@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), '../util/network_device/cnos')
 require File.join(File.dirname(__FILE__), '../util/network_device/transport/cnos')
 require 'cnos-rbapi/vlan'
+require 'cnos-rbapi/vrrp'
 require 'json'
 
 class Puppet::Provider::Cnos < Puppet::Provider
@@ -47,17 +48,16 @@ class Puppet::Provider::Cnos < Puppet::Provider
     return resp
   end
 
-  # VLAN Methods Starts here
 
+  # VLAN Starts here
   def self.get_all_vlan()
     resp = Vlan.get_all_vlan(connection)
     return resp
-
   end
 
   def self.create_vlan(params)
     resp = Vlan.create_vlan(connection, params)
-    #Puppet.debug("Reaching here :"+resp)
+    #Puppet.notice("Reaching here :"+resp)
     return resp
   end
 
@@ -71,13 +71,16 @@ class Puppet::Provider::Cnos < Puppet::Provider
     return resp
   end
 
+
+  #Generic methods starts here``
+
   def self.call(url,args={})
     transport.call(url,args)
   end
 
   def self.call_items(url,args={'expandSubcollections'=>'true'})
     if call = transport.call(url,args)
-      #Puppet.debug("Reaching here"+call)
+      #Puppet.notice("Reaching here"+call)
       call
       #call['item']
     else
