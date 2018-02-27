@@ -19,6 +19,7 @@ Puppet::Type.newtype(:cnos_vlan) do
                      admin_state => up,
               }
            }'
+  apply_to_device
   ensurable
 
   # Parameters
