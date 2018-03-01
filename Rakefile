@@ -1,4 +1,5 @@
 require 'rspec-puppet/rake_task'
+require 'rubygems'
 
 begin
   if Gem::Specification::find_by_name('puppet-lint')
@@ -8,4 +9,11 @@ begin
   end
 rescue Gem::LoadError
   task :default => :rspec
+end
+
+desc "Validate manifestsfiles"
+task :validate do
+  Dir['manifests/**/*.pp'].each do |manifest|
+    sh "puppet parser validate --noop #{manifest}"
+  end
 end
