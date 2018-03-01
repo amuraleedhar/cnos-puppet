@@ -11,7 +11,7 @@ rescue Gem::LoadError
   task :default => :rspec
 end
 
-desc "Validate manifestsfiles"
+desc "Validate manifests files"
 task :validate do
   Dir['manifests/**/*.pp'].each do |manifest|
     sh "puppet parser validate --noop #{manifest}"
