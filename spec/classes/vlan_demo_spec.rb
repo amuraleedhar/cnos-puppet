@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'cnos::vlan_demo' do
+describe 'vlan_demo' do
   it 'creates a vlan called vlan20' do
     pp=<<-EOS
     cnos_vlan { '20':
