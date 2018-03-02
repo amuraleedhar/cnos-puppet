@@ -118,3 +118,12 @@ Puppet::Type.type(:cnos_vrrp).provide(:gem, parent: Puppet::Provider::Cnos) do
     Puppet.debug("I am inside exists")
     @property_hash[:ensure] == :present
   end
+
+  def destroy
+    Puppet.debug("I am inside destroy")
+    #conn = Connect.new('./config.yml')
+    #Vrrp.del_vrrp_intf_vrid(conn, resource[:if_name], resource[:vr_id])
+    resp = Puppet::Provider::Cnos.del_vrrp_intf_vrid(resource[:if_name], resource[:vr_id])
+    @property_hash.clear
+  end
+end
