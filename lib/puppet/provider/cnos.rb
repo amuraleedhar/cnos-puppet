@@ -2,6 +2,7 @@ require File.join(File.dirname(__FILE__), '../util/network_device/cnos')
 require File.join(File.dirname(__FILE__), '../util/network_device/transport/cnos')
 require 'cnos-rbapi/vlan'
 require 'cnos-rbapi/vrrp'
+require 'cnos-rbapi/vlan_intf'
 require 'json'
 
 class Puppet::Provider::Cnos < Puppet::Provider
@@ -71,6 +72,15 @@ class Puppet::Provider::Cnos < Puppet::Provider
     return resp
   end
 
+# VLAN Interface Starts here
+  def self.get_all_vlan_intf()
+    resp = VlanIntf.get_all_vlan_intf(connection)
+    return resp
+  end
+
+  def self.update_vlan(if_name, params)
+    resp = VlanIntf.update_vlan_intf(connection, if_name, params)
+  end
 
   #Generic methods starts here``
 
