@@ -24,7 +24,7 @@ Puppet::Type.type(:cnos_vrrp).provide(:vlan, parent: Puppet::Provider::Cnos) do
   #mk_resource_methods
 
   def self.instances
-    provider_val = []
+    instances = []
     #conn = Connect.new('./config.yml')
     #resp = Vrrp.get_vrrp_prop_all(conn)
     resp = Puppet::Provider::Cnos.get_vrrp_prop_all()
@@ -33,21 +33,21 @@ Puppet::Type.type(:cnos_vrrp).provide(:vlan, parent: Puppet::Provider::Cnos) do
       Puppet.debug("VRRP Id is "+ item['vr_id'].to_s)
       Puppet.debug("If name is "+ item['if_name'].to_s)
       Puppet.debug("Ip Address is "+ item['ip_addr'].to_s)
-      provider_val << new(name: item['vr_id'].to_s,
-                          vr_id: item['vr_id'],
-                          if_name: item['if_name'],
-                          ensure: :present,
-                          ip_addr: item['ip_addr'],
-                          ad_intvl: item['ad_intvl'],
-                          preempt: item['preempt'],
-                          prio: item['prio'],
-                          admin_state: item['admin_state'],
-                          track_if: item['track_if'],
-                          accept_mode: item['accept_mode'],
-                          switch_back_delay: item['switch_back_delay'],
-                          v2_compt: item['v2_compt'])
+      instances << new(name: item['vr_id'].to_s,
+                       vr_id: item['vr_id'],
+                       if_name: item['if_name'],
+                       ensure: :present,
+                       ip_addr: item['ip_addr'],
+                       ad_intvl: item['ad_intvl'],
+                       preempt: item['preempt'],
+                       prio: item['prio'],
+                       admin_state: item['admin_state'],
+                       track_if: item['track_if'],
+                       accept_mode: item['accept_mode'],
+                       switch_back_delay: item['switch_back_delay'],
+                       v2_compt: item['v2_compt'])
     end
-    return provider_val
+    return instances
   end
 
   def self.prefetch(resources)
@@ -120,12 +120,3 @@ Puppet::Type.type(:cnos_vrrp).provide(:vlan, parent: Puppet::Provider::Cnos) do
     Puppet.debug("I am inside exists")
     @property_hash[:ensure] == :present
   end
-
-  def destroy
-    Puppet.debug("I am inside destroy")
-    #conn = Connect.new('./config.yml')
-    #Vrrp.del_vrrp_intf_vrid(conn, resource[:if_name], resource[:vr_id])
-    resp = Puppet::Provider::Cnos.del_vrrp_intf_vrid(resource[:if_name], resource[:vr_id])
-    @property_hash.clear
-  end
-end
