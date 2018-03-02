@@ -3,6 +3,7 @@ require File.join(File.dirname(__FILE__), '../util/network_device/transport/cnos
 require 'cnos-rbapi/vlan'
 require 'cnos-rbapi/vrrp'
 require 'cnos-rbapi/vlan_intf'
+require 'cnos-rbapi/vlag'
 require 'json'
 
 class Puppet::Provider::Cnos < Puppet::Provider
@@ -27,7 +28,28 @@ class Puppet::Provider::Cnos < Puppet::Provider
   def self.connection
     transport.connection
   end
+  
+  # VLAG Methods start here
+  def self.get_all_vlag()
+    resp = Vlag.get_all_vlag(connection)
+    return resp
+  end
 
+  def self.create_vlag_inst(params)
+    resp = Vlag.create_vlag_inst(connection, params)
+    return resp
+  end
+
+  def self.update_vlag_inst(inst_id, params)
+    resp = Vlag.update_vlag_inst(connection, inst_id, params)
+    return resp
+  end
+
+  def self.delete_vlag_inst(inst_id)
+    resp = Vlag.delete_vlag_inst(connection, inst_id)
+    return resp
+  end
+  
   # VRRP Methods start here
   def self.get_vrrp_prop_all()
     resp = Vrrp.get_vrrp_prop_all(connection)
