@@ -10,13 +10,11 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-#require 'cnos-rbapi'
-#require 'cnos-rbapi/vrrp'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
 
-Puppet::Type.type(:cnos_vrrp).provide(:vlan, parent: Puppet::Provider::Cnos) do
+Puppet::Type.type(:cnos_vrrp).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage VRRP on Lenovo CNOS. Requires cnos-rbapi'
 
   #confine operatingsystem: [:ubuntu]
