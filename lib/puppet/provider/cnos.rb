@@ -49,7 +49,40 @@ class Puppet::Provider::Cnos < Puppet::Provider
     resp = Vlag.delete_vlag_inst(connection, inst_id)
     return resp
   end
-  
+
+  # VLAG Health Methods start here
+  def self.get_vlag_health()
+    resp = Vlag.get_vlag_health(connection)
+    return resp
+  end
+
+  def self.update_vlag_health(params)
+    resp = Vlag.update_vlag_health(connection, params)
+    return resp
+  end
+
+  # VLAG ISL Methods start here
+  def self.get_vlag_isl()
+    resp = Vlag.get_vlag_isl(connection)
+    return resp
+  end
+
+  def self.update_vlag_isl(params)
+    resp = Vlag.update_vlag_isl(connection, params)
+    return resp
+  end
+
+  # VLAG Conf Methods start here
+    def self.get_vlag_conf()
+    resp = Vlag.get_vlag_conf(connection)
+    return resp
+  end
+
+  def self.update_vlag_conf(params)
+    resp = Vlag.update_vlag_conf(connection, params)
+    return resp
+  end
+
   # VRRP Methods start here
   def self.get_vrrp_prop_all()
     resp = Vrrp.get_vrrp_prop_all(connection)
