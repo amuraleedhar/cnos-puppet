@@ -5,6 +5,7 @@ require 'cnos-rbapi/vrrp'
 require 'cnos-rbapi/vlan_intf'
 require 'cnos-rbapi/vlag'
 require 'cnos-rbapi/arp'
+require 'cnos-rbapi/ip_intf'
 require 'json'
 
 class Puppet::Provider::Cnos < Puppet::Provider
@@ -28,6 +29,17 @@ class Puppet::Provider::Cnos < Puppet::Provider
 
   def self.connection
     transport.connection
+  end
+  
+  # Interface Methods start here
+  def self.get_ip_prop_all()
+    resp = Ipintf.get_ip_prop_all(connection)
+    return resp
+  end
+
+  def self.update_ip_prop_intf(if_name, params)
+    resp = Ipintf.update_ip_prop_intf(connection, if_name, params)
+    return resp
   end
   
   # ARP Methods start here
