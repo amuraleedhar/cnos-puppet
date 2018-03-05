@@ -1,18 +1,19 @@
-require 'spec_helper'
+#require 'spec_helper'
+require 'rspec-puppet
 
 type_class = Puppet::Type.type(:cnos_vlan)
 
 describe type_class do
   let :params do
     [
-      :vlan_id
+      :vlan_id,
     ]
   end
 
   let :properties do
     %i[
-      vlan_name
-      admin_state
+      :vlan_name
+      :admin_state
     ]
   end
 
