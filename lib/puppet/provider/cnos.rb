@@ -4,6 +4,7 @@ require 'cnos-rbapi/vlan'
 require 'cnos-rbapi/vrrp'
 require 'cnos-rbapi/vlan_intf'
 require 'cnos-rbapi/vlag'
+require 'cnos-rbapi/arp'
 require 'json'
 
 class Puppet::Provider::Cnos < Puppet::Provider
@@ -29,6 +30,27 @@ class Puppet::Provider::Cnos < Puppet::Provider
     transport.connection
   end
   
+  # ARP Methods start here
+  def self.get_arp_intf_prop(if_name)
+    resp = Arp.get_arp_intf_prop(connection, if_name)
+    return resp
+  end
+
+  def self.set_arp_intf_prop(if_name, params)
+    resp = Arp.set_arp_intf_prop(connection, if_name, params)
+    return resp
+  end
+
+  def self.get_arp_sys_prop()
+    resp = Arp.get_arp_sys_prop(connection)
+    return resp
+  end
+
+  def self.set_arp_sys_prop(params)
+    resp = Arp.set_arp_sys_prop(connection, params)
+    return resp
+  end
+
   # VLAG Methods start here
   def self.get_all_vlag()
     resp = Vlag.get_all_vlag(connection)
