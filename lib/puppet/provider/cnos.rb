@@ -7,6 +7,7 @@ require 'cnos-rbapi/vlag'
 require 'cnos-rbapi/arp'
 require 'cnos-rbapi/ip_intf'
 require 'cnos-rbapi/lacp'
+require 'cnos-rbapi/lag'
 require 'json'
 
 class Puppet::Provider::Cnos < Puppet::Provider
@@ -30,6 +31,30 @@ class Puppet::Provider::Cnos < Puppet::Provider
 
   def self.connection
     transport.connection
+  end
+ 
+  # LAG Methods start here
+  def self.get_lag_prop(lag_id)
+    resp = Lag.get_lag_prop(connection, lag_id)
+    return resp
+  end
+
+  def self.get_lag_prop(lag_id, params)
+    resp = Lag.update_lag(connection, lag_id, params)
+    return resp
+  end
+
+  def self.update_lag(lag_id, params)
+    resp = Lag.update_lag(connection, lag_id, params)
+    return resp
+  end
+
+  def self.create_lag(lag_id, interfaces)
+    Lag.create_lag(connection, lag_id, interfaces)
+  end
+
+  def self.delete_lag(lag_id)
+    Lag.delete_lag(connection, lag_id)
   end
   
   # LACP Methods start here
