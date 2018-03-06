@@ -8,6 +8,7 @@ require 'cnos-rbapi/arp'
 require 'cnos-rbapi/ip_intf'
 require 'cnos-rbapi/lacp'
 require 'cnos-rbapi/lag'
+require 'cnos-rbapi/telemetry'
 require 'json'
 
 class Puppet::Provider::Cnos < Puppet::Provider
@@ -31,6 +32,36 @@ class Puppet::Provider::Cnos < Puppet::Provider
 
   def self.connection
     transport.connection
+  end
+  
+  # System methods start here
+  def self.get_sys_feature()
+    resp = Telemetry.get_sys_feature(connection)
+    return resp
+  end
+
+  def self.set_sys_feature(params)
+    resp = Telemetry.set_sys_feature(connection, params)
+    return resp
+  end
+
+  # Telemetry
+  def self.get_bst_feature()
+    resp = Telemetry.get_bst_feature(connection)
+    return resp
+  end
+
+  def self.set_bst_feature(params)
+    resp = Telemetry.set_bst_feature(connection, params)
+  end
+
+  def self.get_bst_tracking()
+    resp = Telemetry.get_bst_tracking(connection)
+    return resp
+  end
+
+  def self.set_bst_tracking(params)
+    resp = Telemetry.set_bst_tracking(connection, params)
   end
  
   # LAG Methods start here
