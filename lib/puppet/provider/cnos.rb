@@ -6,6 +6,7 @@ require 'cnos-rbapi/vlan_intf'
 require 'cnos-rbapi/vlag'
 require 'cnos-rbapi/arp'
 require 'cnos-rbapi/ip_intf'
+require 'cnos-rbapi/lacp'
 require 'json'
 
 class Puppet::Provider::Cnos < Puppet::Provider
@@ -31,6 +32,17 @@ class Puppet::Provider::Cnos < Puppet::Provider
     transport.connection
   end
   
+  # LACP Methods start here
+  def self.get_lacp()
+    resp = Lacp.get_lacp(connection)
+    return resp
+  end
+
+  def self.update_lacp(params)
+    resp = Lacp.update_lacp(connection, params)
+    return resp
+  end
+
   # Interface Methods start here
   def self.get_ip_prop_all()
     resp = Ipintf.get_ip_prop_all(connection)
