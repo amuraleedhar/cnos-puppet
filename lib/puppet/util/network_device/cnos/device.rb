@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '../cnos')
 require File.join(File.dirname(__FILE__), '../cnos/facts')
 require File.join(File.dirname(__FILE__), '../transport/cnos')
 
-require "uri"
+require 'uri'
 
 class Puppet::Util::NetworkDevice::Cnos::Device
   attr_reader :connection
@@ -14,18 +14,18 @@ class Puppet::Util::NetworkDevice::Cnos::Device
 
     @autoloader = Puppet::Util::Autoload.new(
       self,
-      "puppet/util/network_device/transport"
+      'puppet/util/network_device/transport'
     )
-    if @autoloader.load("cnos")
+    if @autoloader.load('cnos')
       @transport = Puppet::Util::NetworkDevice::Transport::Cnos.new(url, options[:debug])
-      Puppet.debug(self.class.to_s.split("::").last + ": Inside Device Initialize")
+      Puppet.debug(self.class.to_s.split('::').last + ': Inside Device Initialize')
     end
   end
 
   def facts
-    Puppet.debug(self.class.to_s.split("::").last + ": Inside Device FACTS Initialize")
+    Puppet.debug(self.class.to_s.split('::').last + ': Inside Device FACTS Initialize')
     @facts ||= Puppet::Util::NetworkDevice::Cnos::Facts.new(@transport)
 
-    return @facts.retrieve
+    @facts.retrieve
   end
 end
