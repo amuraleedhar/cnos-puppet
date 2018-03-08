@@ -18,10 +18,10 @@ class Puppet::Provider::Cnos < Puppet::Provider
 
   def self.transport
     if Puppet::Util::NetworkDevice.current
-      #we are in `puppet device`
+      # we are in `puppet device`
       Puppet::Util::NetworkDevice.current.transport
     else
-      #we are in `puppet resource`
+      # we are in `puppet resource`
       Puppet::Util::NetworkDevice::Transport::Cnos.new(Facter.value(:url))
     end
   end
@@ -33,51 +33,51 @@ class Puppet::Provider::Cnos < Puppet::Provider
   def self.connection
     transport.connection
   end
-  
+
   # System methods start here
-  def self.get_sys_feature()
+  def self.get_sys_feature
     resp = Telemetry.get_sys_feature(connection)
-    return resp
+    resp
   end
 
   def self.set_sys_feature(params)
     resp = Telemetry.set_sys_feature(connection, params)
-    return resp
+    resp
   end
 
   # Telemetry
-  def self.get_bst_feature()
+  def self.get_bst_feature
     resp = Telemetry.get_bst_feature(connection)
-    return resp
+    resp
   end
 
   def self.set_bst_feature(params)
     resp = Telemetry.set_bst_feature(connection, params)
   end
 
-  def self.get_bst_tracking()
+  def self.get_bst_tracking
     resp = Telemetry.get_bst_tracking(connection)
-    return resp
+    resp
   end
 
   def self.set_bst_tracking(params)
     resp = Telemetry.set_bst_tracking(connection, params)
   end
- 
+
   # LAG Methods start here
   def self.get_lag_prop(lag_id)
     resp = Lag.get_lag_prop(connection, lag_id)
-    return resp
+    resp
   end
 
   def self.get_lag_prop(lag_id, params)
     resp = Lag.update_lag(connection, lag_id, params)
-    return resp
+    resp
   end
 
   def self.update_lag(lag_id, params)
     resp = Lag.update_lag(connection, lag_id, params)
-    return resp
+    resp
   end
 
   def self.create_lag(lag_id, interfaces)
@@ -87,171 +87,168 @@ class Puppet::Provider::Cnos < Puppet::Provider
   def self.delete_lag(lag_id)
     Lag.delete_lag(connection, lag_id)
   end
-  
+
   # LACP Methods start here
-  def self.get_lacp()
+  def self.get_lacp
     resp = Lacp.get_lacp(connection)
-    return resp
+    resp
   end
 
   def self.update_lacp(params)
     resp = Lacp.update_lacp(connection, params)
-    return resp
+    resp
   end
 
   # Interface Methods start here
-  def self.get_ip_prop_all()
+  def self.get_ip_prop_all
     resp = Ipintf.get_ip_prop_all(connection)
-    return resp
+    resp
   end
 
   def self.update_ip_prop_intf(if_name, params)
     resp = Ipintf.update_ip_prop_intf(connection, if_name, params)
-    return resp
+    resp
   end
-  
+
   # ARP Methods start here
   def self.get_arp_intf_prop(if_name)
     resp = Arp.get_arp_intf_prop(connection, if_name)
-    return resp
+    resp
   end
 
   def self.set_arp_intf_prop(if_name, params)
     resp = Arp.set_arp_intf_prop(connection, if_name, params)
-    return resp
+    resp
   end
 
-  def self.get_arp_sys_prop()
+  def self.get_arp_sys_prop
     resp = Arp.get_arp_sys_prop(connection)
-    return resp
+    resp
   end
 
   def self.set_arp_sys_prop(params)
     resp = Arp.set_arp_sys_prop(connection, params)
-    return resp
+    resp
   end
 
   # VLAG Methods start here
-  def self.get_all_vlag()
+  def self.get_all_vlag
     resp = Vlag.get_all_vlag(connection)
-    return resp
+    resp
   end
 
   def self.create_vlag_inst(params)
     resp = Vlag.create_vlag_inst(connection, params)
-    return resp
+    resp
   end
 
   def self.update_vlag_inst(inst_id, params)
     resp = Vlag.update_vlag_inst(connection, inst_id, params)
-    return resp
+    resp
   end
 
   def self.delete_vlag_inst(inst_id)
     resp = Vlag.delete_vlag_inst(connection, inst_id)
-    return resp
+    resp
   end
 
   # VLAG Health Methods start here
-  def self.get_vlag_health()
+  def self.get_vlag_health
     resp = Vlag.get_vlag_health(connection)
-    return resp
+    resp
   end
 
   def self.update_vlag_health(params)
     resp = Vlag.update_vlag_health(connection, params)
-    return resp
+    resp
   end
 
   # VLAG ISL Methods start here
-  def self.get_vlag_isl()
+  def self.get_vlag_isl
     resp = Vlag.get_vlag_isl(connection)
-    return resp
+    resp
   end
 
   def self.update_vlag_isl(params)
     resp = Vlag.update_vlag_isl(connection, params)
-    return resp
+    resp
   end
 
   # VLAG Conf Methods start here
-    def self.get_vlag_conf()
+  def self.get_vlag_conf
     resp = Vlag.get_vlag_conf(connection)
-    return resp
-  end
+    resp
+end
 
   def self.update_vlag_conf(params)
     resp = Vlag.update_vlag_conf(connection, params)
-    return resp
+    resp
   end
 
   # VRRP Methods start here
-  def self.get_vrrp_prop_all()
+  def self.get_vrrp_prop_all
     resp = Vrrp.get_vrrp_prop_all(connection)
-    return resp
+    resp
   end
 
   def self.create_vrrp_intf(if_name, params)
     resp = Vrrp.create_vrrp_intf(connection, if_name, params)
-    return resp
+    resp
   end
 
-  def self.update_vrrp_intf_vrid(if_name,vr_id, params)
+  def self.update_vrrp_intf_vrid(if_name, vr_id, params)
     resp = Vrrp.update_vrrp_intf_vrid(connection, if_name, vr_id, params)
-    return resp
+    resp
   end
 
   def self.del_vrrp_intf_vrid(if_name, vr_id)
     resp = Vrrp.del_vrrp_intf_vrid(connection, if_name, vr_id)
-    return resp
+    resp
   end
 
-
   # VLAN Starts here
-  def self.get_all_vlan()
+  def self.get_all_vlan
     resp = Vlan.get_all_vlan(connection)
-    return resp
+    resp
   end
 
   def self.create_vlan(params)
     resp = Vlan.create_vlan(connection, params)
-    #Puppet.notice("Reaching here :"+resp)
-    return resp
+    # Puppet.notice("Reaching here :"+resp)
+    resp
   end
 
   def self.update_vlan(vlan_id, params)
-    resp = Vlan.update_vlan(connection,vlan_id, params)
-    return resp
+    resp = Vlan.update_vlan(connection, vlan_id, params)
+    resp
   end
 
   def self.delete_vlan(vlan_id)
     resp = Vlan.delete_vlan(connection, vlan_id)
-    return resp
+    resp
   end
 
-# VLAN Interface Starts here
-  def self.get_all_vlan_intf()
+  # VLAN Interface Starts here
+  def self.get_all_vlan_intf
     resp = VlanIntf.get_all_vlan_intf(connection)
-    return resp
+    resp
   end
 
   def self.update_vlan(if_name, params)
     resp = VlanIntf.update_vlan_intf(connection, if_name, params)
   end
 
-  #Generic methods starts here``
+  # Generic methods starts here``
 
-  def self.call(url,args={})
-    transport.call(url,args)
+  def self.call(url, args = {})
+    transport.call(url, args)
   end
 
-  def self.call_items(url,args={'expandSubcollections'=>'true'})
-    if call = transport.call(url,args)
-      #Puppet.notice("Reaching here"+call)
+  def self.call_items(url, args = { 'expandSubcollections' => 'true' })
+    if call = transport.call(url, args)
+      # Puppet.notice("Reaching here"+call)
       call
-      #call['item']
-    else
-      nil
+      # call['item']
     end
   end
 
@@ -274,5 +271,4 @@ class Puppet::Provider::Cnos < Puppet::Provider
   def self.find_monitors(string)
     transport.find_monitors(string)
   end
-
-end #End of class
+end # End of class
