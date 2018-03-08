@@ -23,9 +23,6 @@ Puppet::Type.type(:cnos_vlan).provide(:gem, parent: Puppet::Provider::Cnos) do
 
   def self.instances
     instances = []
-    #conn = Connect.new('./cnos/config.yml')
-    #resp = Vlan.get_all_vlan(conn)
-    #resp = get_all_vlan()
     vlans = Puppet::Provider::Cnos.call_items("/nos/api/cfg/vlan")
     #Puppet.debug("Vlans are "+vlans.to_s)
     return [] if vlans.nil?
@@ -33,8 +30,8 @@ Puppet::Type.type(:cnos_vlan).provide(:gem, parent: Puppet::Provider::Cnos) do
       Puppet.debug("Vlan Id is "+ item['vlan_id'].to_s)
       Puppet.debug("Vlan name is "+ item['vlan_name'].to_s)
       Puppet.debug("Admin State is "+ item['admin_state'].to_s)
-      #instances << new(name: item['vlan_id'].to_s,
-      instances << new(vlan_id: item['vlan_id'].to_s,
+      instances << new(name: item['vlan_id'].to_s,
+                       vlan_id: item['vlan_id'].to_i,
                        vlan_name: item['vlan_name'],
                        ensure: :present,
                        admin_state: item['admin_state'])
@@ -47,12 +44,11 @@ Puppet::Type.type(:cnos_vlan).provide(:gem, parent: Puppet::Provider::Cnos) do
     vlans = instances
     Puppet.debug("prefetch vlans "+vlans.to_s)
     Puppet.debug("prefetch resource keys"+resources.keys.to_s)
-    #resources.keys.each do |name|
-    resources.keys.each do |vlan_id|
+    resources.keys.each do |name|
       Puppet.debug("prefetch vlan "+ vlans.first.to_s)
-      if provider = vlans.find { |vlan| vlan.vlan_id == vlan_id }
+      if provider = vlans.find { |vlan| vlan.name == name }
         Puppet.debug("Prefetch data coming here is #{provider}")
-        resources[vlan_id].provider = provider
+        resources[name].provider = provider
       end
     end
   end
@@ -77,7 +73,7 @@ Puppet::Type.type(:cnos_vlan).provide(:gem, parent: Puppet::Provider::Cnos) do
   def create
     #conn = Connect.new('./cnos/config.yml')
     Puppet.notice("I am inside create")
-    params = { "vlan_id" => resource[:vlan_id].to_i,
+    params = { "vlan_id" => resource[:name].to_i,
                "vlan_name" => resource[:vlan_name],
                "admin_state" => resource[:admin_state] }
     #Vlan.create_vlan(conn, params)
