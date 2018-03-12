@@ -1,19 +1,19 @@
 require 'spec_helper'
 
-describe 'cnos_vlan_intf', :type => :type do
+describe 'cnos_vlan_intf', type: :type do
   let(:type_class) { Puppet::Type.type(:cnos_vlan_intf) }
 
   let :params do
     [
-      :if_name,
+      :if_name
     ]
   end
 
   let :properties do
-    [
-      :bridgeport_mode,
-      :pvid,
-      :vlans,
+    %i[
+      bridgeport_mode
+      pvid
+      vlans
     ]
   end
 
@@ -27,7 +27,7 @@ describe 'cnos_vlan_intf', :type => :type do
     params.each do |param|
       expect(type_class.parameters).to be_include(param)
     end
-end
+  end
 
   it 'should require a name' do
     expect do
