@@ -22,6 +22,7 @@ Puppet::Type.newtype(:cnos_vlan_intf) do
            }'
 
   ensurable
+  apply_to_device
 
   # Parameters
   newparam(:if_name, namevar: true) do
