@@ -214,7 +214,6 @@ end
 
   def self.create_vlan(params)
     resp = Vlan.create_vlan(connection, params)
-    # Puppet.notice("Reaching here :"+resp)
     resp
   end
 
@@ -246,7 +245,6 @@ end
 
   def self.call_items(url, args = { 'expandSubcollections' => 'true' })
     if call = transport.call(url, args)
-      # Puppet.notice("Reaching here"+call)
       call
       # call['item']
     end
