@@ -16,32 +16,32 @@ require 'json'
 Puppet::Type.type(:cnos_vlan_intf).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage Vlan on Lenovo CNOS. Requires cnos-rbapi'
 
-  #confine operatingsystem: [:ubuntu]
+  # confine operatingsystem: [:ubuntu]
 
   mk_resource_methods
 
   def self.instances
-    Puppet.debug("I am inside instances")
+    Puppet.debug('I am inside instances')
     instances = []
-    #conn = Connect.new('./config.yml')
-    #resp = VlanIntf.get_all_vlan_intf(conn)
-    resp = Puppet::Provider::Cnos.get_all_vlan_intf()
-    return 'no vlans' if !resp
+    # conn = Connect.new('./config.yml')
+    # resp = VlanIntf.get_all_vlan_intf(conn)
+    resp = Puppet::Provider::Cnos.get_all_vlan_intf
+    return 'no vlans' unless resp
     resp.each do |item|
-      Puppet.debug("Interface Name is " + item['if_name'].to_s)
-      Puppet.debug("bridgeport_mode is " + item['bridgeport_mode'].to_s)
-      Puppet.debug("PVID is "+ item['pvid'].to_s)
+      Puppet.debug('Interface Name is ' + item['if_name'].to_s)
+      Puppet.debug('bridgeport_mode is ' + item['bridgeport_mode'].to_s)
+      Puppet.debug('PVID is ' + item['pvid'].to_s)
       instances << new(name:  item['if_name'],
                        bridgeport_mode: item['bridgeport_mode'],
                        ensure: :present,
                        vlans: item['vlans'],
                        pvid:  item['pvid'])
-      end
-    return instances
+    end
+    instances
  end
 
   def self.prefetch(resources)
-    Puppet.debug("I am inside prefetch")
+    Puppet.debug('I am inside prefetch')
     vlans = instances
     resources.keys.each do |name|
       if provider = vlans.find { |vlan| vlan.name == name }
@@ -52,33 +52,29 @@ Puppet::Type.type(:cnos_vlan_intf).provide(:gem, parent: Puppet::Provider::Cnos)
   end
 
   def exists?
-    Puppet.debug("I am inside exists")
+    Puppet.debug('I am inside exists')
     @property_hash[:ensure] == :present
     # return true since resource is always present
-    return true
+    true
   end
 
   def params_setup
     params = {}
     params['if_name'] = resource[:if_name]
-    if resource[:pvid] != nil
-      params['pvid'] = resource[:pvid]
-    end
-    if resource[:vlans] != nil
-      params['vlans'] = resource[:vlans]
-    end
-    if resource[:bridgeport_mode] != nil
+    params['pvid'] = resource[:pvid] unless resource[:pvid].nil?
+    params['vlans'] = resource[:vlans] unless resource[:vlans].nil?
+    unless resource[:bridgeport_mode].nil?
       params['bridgeport_mode'] = resource[:bridgeport_mode]
     end
-    return params
+    params
   end
 
   def flush
-    Puppet.debug("I am inside flush")
+    Puppet.debug('I am inside flush')
     if @property_hash != {}
-      #conn = Connect.new('./config.yml')
+      # conn = Connect.new('./config.yml')
       params = params_setup
-      #resp = VlanIntf.update_vlan_intf(conn, resource[:if_name], params)
+      # resp = VlanIntf.update_vlan_intf(conn, resource[:if_name], params)
       resp = Puppet::Provider::Cnos.update_vlan_intf(resource[:if_name], params)
     end
     @property_hash = resource.to_hash
