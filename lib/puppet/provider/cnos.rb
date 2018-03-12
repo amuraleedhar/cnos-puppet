@@ -234,7 +234,7 @@ end
     resp
   end
 
-  def self.update_vlan(if_name, params)
+  def self.update_vlan_intf(if_name, params)
     resp = VlanIntf.update_vlan_intf(connection, if_name, params)
   end
 
