@@ -11,8 +11,8 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-#require 'cnos-rbapi'
-#require 'cnos-rbapi/telemetry'
+# require 'cnos-rbapi'
+# require 'cnos-rbapi/telemetry'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
@@ -23,13 +23,13 @@ Puppet::Type.type(:cnos_telemetry).provide(:gem, parent: Puppet::Provider::Cnos)
 
   def self.instances
     instances = []
-    #conn = Connect.new('./config.yml')
-    #resp = Telemetry.get_bst_feature(conn)
-    resp = Puppet::Provider::Cnos.get_bst_feature()
-    return 'no bst feature' if !resp
-    Puppet.debug("BST Enable is "+ resp['bst_enable'].to_s)
-    Puppet.debug("Collection Intervael is "+ resp['collection_interval'].to_s)
-    Puppet.debug("Trigger Rate Limit is "+ resp['trigger_rate_limit'].to_s)
+    # conn = Connect.new('./config.yml')
+    # resp = Telemetry.get_bst_feature(conn)
+    resp = Puppet::Provider::Cnos.get_bst_feature
+    return 'no bst feature' unless resp
+    Puppet.debug('BST Enable is ' + resp['bst_enable'].to_s)
+    Puppet.debug('Collection Intervael is ' + resp['collection_interval'].to_s)
+    Puppet.debug('Trigger Rate Limit is ' + resp['trigger_rate_limit'].to_s)
     instances << new(name: 'telemetry_feature',
                      bst_enable: resp['bst_enable'],
                      send_async_reports: resp['send_async_reports'],
@@ -39,16 +39,16 @@ Puppet::Type.type(:cnos_telemetry).provide(:gem, parent: Puppet::Provider::Cnos)
                      trigger_rate_limit_interval: resp['trigger_rate_limit_interval'],
                      send_snapshot_on_trigger: resp['send-snapshot-on-trigger'])
 
-    puts "1 "
-    puts  @property_hash
-    return instances
+    puts '1 '
+    puts @property_hash
+    instances
   end
 
   def self.prefetch(resources)
-    Puppet.debug("I am inside prefetch")
+    Puppet.debug('I am inside prefetch')
     feature = instances
     resources.keys.each do |name|
-      if provider = feature.find { |feature| TRUE }
+      if provider = feature.find { |_feature| TRUE }
         Puppet.debug("Prefetch data coming here is #{provider}")
         resources[name].provider = provider
       end
@@ -59,31 +59,31 @@ Puppet::Type.type(:cnos_telemetry).provide(:gem, parent: Puppet::Provider::Cnos)
     params = {}
     params =
       {
-        "collection-interval"         => resource[:collection_interval],
-        "send-async-reports"          => resource[:send_async_reports],
-        "send-snapshot-on-trigger"    => resource[:send_snapshot_on_trigger],
-        "trigger-rate-limit"          => resource[:trigger_rate_limit],
-        "async-full-report"           => resource[:async_full_report],
-        "trigger-rate-limit-interval" => resource[:trigger_rate_limit_interval],
-        "bst-enable"                  => resource[:bst_enable]
+        'collection-interval'         => resource[:collection_interval],
+        'send-async-reports'          => resource[:send_async_reports],
+        'send-snapshot-on-trigger'    => resource[:send_snapshot_on_trigger],
+        'trigger-rate-limit'          => resource[:trigger_rate_limit],
+        'async-full-report'           => resource[:async_full_report],
+        'trigger-rate-limit-interval' => resource[:trigger_rate_limit_interval],
+        'bst-enable'                  => resource[:bst_enable]
       }
-    return params
+    params
   end
 
   def exists?
-    Puppet.debug("I am inside exists")
+    Puppet.debug('I am inside exists')
     @property_hash[:ensure] == :present
-    return true
+    true
   end
 
   def flush
-    Puppet.debug("I am inside flush")
-    puts  @property_hash
+    Puppet.debug('I am inside flush')
+    puts @property_hash
     if @property_hash
-      puts "hello"
-      #conn = Connect.new('./config.yml')
+      puts 'hello'
+      # conn = Connect.new('./config.yml')
       params = params_setup
-      #Telemetry.set_bst_feature(conn, params)
+      # Telemetry.set_bst_feature(conn, params)
       Puppet::Provider::Cnos.set_bst_feature(params)
     end
     @property_hash = resource.to_hash
