@@ -13,24 +13,23 @@ require 'puppet/type'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
-
 Puppet::Type.type(:cnos_vrrp).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage VRRP on Lenovo CNOS. Requires cnos-rbapi'
 
-  #confine operatingsystem: [:ubuntu]
+  # confine operatingsystem: [:ubuntu]
 
-  #mk_resource_methods
+  # mk_resource_methods
 
   def self.instances
     instances = []
-    #conn = Connect.new('./config.yml')
-    #resp = Vrrp.get_vrrp_prop_all(conn)
-    resp = Puppet::Provider::Cnos.get_vrrp_prop_all()
-    return 'no vrrp' if !resp
+    # conn = Connect.new('./config.yml')
+    # resp = Vrrp.get_vrrp_prop_all(conn)
+    resp = Puppet::Provider::Cnos.get_vrrp_prop_all
+    return 'no vrrp' unless resp
     resp.each do |item|
-      Puppet.debug("VRRP Id is "+ item['vr_id'].to_s)
-      Puppet.debug("If name is "+ item['if_name'].to_s)
-      Puppet.debug("Ip Address is "+ item['ip_addr'].to_s)
+      Puppet.debug('VRRP Id is ' + item['vr_id'].to_s)
+      Puppet.debug('If name is ' + item['if_name'].to_s)
+      Puppet.debug('Ip Address is ' + item['ip_addr'].to_s)
       instances << new(name: item['vr_id'].to_s,
                        vr_id: item['vr_id'],
                        if_name: item['if_name'],
@@ -45,16 +44,16 @@ Puppet::Type.type(:cnos_vrrp).provide(:gem, parent: Puppet::Provider::Cnos) do
                        switch_back_delay: item['switch_back_delay'],
                        v2_compt: item['v2_compt'])
     end
-    return instances
+    instances
   end
 
   def self.prefetch(resources)
-    Puppet.debug("I am inside prefetch")
+    Puppet.debug('I am inside prefetch')
     vrrps = instances
     resources.keys.each do |name|
-      Puppet.debug("prefetch vrrps "+ vrrps.first.to_s)
+      Puppet.debug('prefetch vrrps ' + vrrps.first.to_s)
       if provider = vrrps.find { |vrrp| vrrp.name == name }
-        Puppet.debug("prefetch vrrp "+ vlans.first.to_s)
+        Puppet.debug('prefetch vrrp ' + vlans.first.to_s)
         resources[name].provider = provider
       end
     end
@@ -64,65 +63,53 @@ Puppet::Type.type(:cnos_vrrp).provide(:gem, parent: Puppet::Provider::Cnos) do
     params = {}
     params['if_name'] = resource[:if_name]
     params['vr_id'] = resource[:vr_id].to_i
-    if resource[:ad_intvl] != nil
-      params['ad_intvl'] = resource[:ad_intvl]
-    end
-    if resource[:ip_addr] != nil
-      params['ip_addr'] = resource[:ip_addr]
-    end
-    if resource[:preempt] != nil
-      params['preempt'] = resource[:preempt]
-    end
-    if resource[:prio] != nil
-      params['prio'] = resource[:prio]
-    end
-    if resource[:admin_state] != nil
+    params['ad_intvl'] = resource[:ad_intvl] unless resource[:ad_intvl].nil?
+    params['ip_addr'] = resource[:ip_addr] unless resource[:ip_addr].nil?
+    params['preempt'] = resource[:preempt] unless resource[:preempt].nil?
+    params['prio'] = resource[:prio] unless resource[:prio].nil?
+    unless resource[:admin_state].nil?
       params['admin_state'] = resource[:admin_state]
     end
-    if resource[:track_if] != nil
-      params['track_if'] = resource[:track_if]
-    end
-    if resource[:accept_mode] != nil
+    params['track_if'] = resource[:track_if] unless resource[:track_if].nil?
+    unless resource[:accept_mode].nil?
       params['accept_mode'] = resource[:accept_mode]
     end
-    if resource[:switch_back_delay] != nil
+    unless resource[:switch_back_delay].nil?
       params['switch_back_delay'] = resource[:switch_back_delay]
     end
-    if resource[:v2_compt] != nil
-      params['v2_compt'] = resource[:v2_compt]
-    end
-    return params
+    params['v2_compt'] = resource[:v2_compt] unless resource[:v2_compt].nil?
+    params
   end
 
   def flush
-    Puppet.debug("I am inside flush")
+    Puppet.debug('I am inside flush')
     if @property_hash != {}
-      #conn = Connect.new('./config.yml')
+      # conn = Connect.new('./config.yml')
       params = params_setup
-      #resp = Vrrp.update_vrrp_intf_vrid(conn, resource[:if_name], resource[:vr_id], params)
+      # resp = Vrrp.update_vrrp_intf_vrid(conn, resource[:if_name], resource[:vr_id], params)
       resp = Puppet::Provider::Cnos.update_vrrp_intf_vrid(resource[:if_name], resource[:vr_id], params)
     end
     @property_hash = resource.to_hash
   end
 
   def create
-    #conn = Connect.new('./config.yml')
-    Puppet.debug("I am inside create")
+    # conn = Connect.new('./config.yml')
+    Puppet.debug('I am inside create')
     params = params_setup
-    #Vrrp.create_vrrp_intf(conn, resource[:if_name], params)
+    # Vrrp.create_vrrp_intf(conn, resource[:if_name], params)
     resp = Puppet::Provider::Cnos.create_vrrp_intf(resource[:if_name], params)
     @property_hash.clear
   end
 
   def exists?
-    Puppet.debug("I am inside exists")
+    Puppet.debug('I am inside exists')
     @property_hash[:ensure] == :present
   end
 
   def destroy
-    Puppet.debug("I am inside destroy")
-    #conn = Connect.new('./config.yml')
-    #Vrrp.del_vrrp_intf_vrid(conn, resource[:if_name], resource[:vr_id])
+    Puppet.debug('I am inside destroy')
+    # conn = Connect.new('./config.yml')
+    # Vrrp.del_vrrp_intf_vrid(conn, resource[:if_name], resource[:vr_id])
     resp = Puppet::Provider::Cnos.del_vrrp_intf_vrid(resource[:if_name], resource[:vr_id])
     @property_hash.clear
   end
