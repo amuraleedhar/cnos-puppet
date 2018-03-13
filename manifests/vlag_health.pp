@@ -9,9 +9,11 @@
 # THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS, WITHOUT
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
-cnos_vlag_hc {'vlag':
-  ensure             => absent
-  keepalive_interval => 5,
-  retry_interval     => 10,
-  keepalive_attempts => 15,
+class cnos::vlag_health {
+  cnos_vlag_hc {'vlag':
+    ensure             => absent
+    keepalive_interval => 5,
+    retry_interval     => 10,
+    keepalive_attempts => 15,
+  }
 }
