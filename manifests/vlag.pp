@@ -10,7 +10,7 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 cnos_vlag { '2':
-ensure => 'present',
-status => 'disable',
+ensure          => 'present',
+status          => 'disable',
 port_aggregator => 20,}
 
