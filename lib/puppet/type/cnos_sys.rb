@@ -1,7 +1,7 @@
 # Copyright (c) 2017, Lenovo. All rights reserved.
 #
 # This program and the accompanying materials are licensed and made available
-# under the terms and conditions of the 3-clause BSD License that accompanies 
+# under the terms and conditions of the 3-clause BSD License that accompanies
 # this distribution. The full text of the license may be found at
 #
 # https://opensource.org/licenses/BSD-3-Clause
@@ -23,29 +23,23 @@ Puppet::Type.newtype(:cnos_sys) do
   # Parameters
   newparam(:sys_feature, namevar: true) do
     desc 'setting system feature - should be "sys"'
-    newvalues("sys", "system")
+    newvalues('sys', 'system')
   end
 
   # Properties
   newproperty(:heartbeat_enable) do
     desc '0/1 for enable or disable'
 
-    munge do |value|
-      value.to_i
-    end
+    munge(&:to_i)
   end
 
   newproperty(:msg_interval) do
     desc 'determines interval of heartbeat message'
 
-    munge do |value|
-      value.to_i
-    end
+    munge(&:to_i)
 
     validate do |value|
-      unless value.to_i.between?(1, 600)
-        fail "value not within limit (1-600)"
-      end
+      raise 'value not within limit (1-600)' unless value.to_i.between?(1, 600)
     end
   end
 end
