@@ -79,7 +79,5 @@ Puppet::Type.type(:cnos_lag).provide(:gem, parent: Puppet::Provider::Cnos) do
   end
 
   def destroy
-    #conn = Connect.new('./config.yml')
-    #Lag.delete_lag(conn, resource[:lag_id])
     Puppet::Provider::Cnos.delete_lag(resource[:lag_id])
   end
