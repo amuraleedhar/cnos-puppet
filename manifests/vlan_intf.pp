@@ -10,7 +10,8 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 cnos_vlan_intf { 'Ethernet1/92':
-#ensure => 'present',
-bridgeport_mode => 'trunk',
-pvid => 1,
-vlans => [10],}
+  ensure          => 'present',
+  bridgeport_mode => 'trunk',
+  pvid            => 1,
+  vlans           => [10],
+}
