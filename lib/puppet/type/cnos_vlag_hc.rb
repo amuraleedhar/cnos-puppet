@@ -1,7 +1,7 @@
 # Copyright (c) 2017, Lenovo. All rights reserved.
 #
 # This program and the accompanying materials are licensed and made available
-# under the terms and conditions of the 3-clause BSD License that accompanies 
+# under the terms and conditions of the 3-clause BSD License that accompanies
 # this distribution. The full text of the license may be found at
 #
 # https://opensource.org/licenses/BSD-3-Clause
@@ -42,42 +42,30 @@ Puppet::Type.newtype(:cnos_vlag_hc) do
   newproperty(:keepalive_attempts) do
     desc 'No of keepalive attempts'
 
-    munge do |value|
-      value.to_i
-    end
+    munge(&:to_i)
 
     validate do |value|
-      unless value.to_i.between?(1, 24)
-        fail "value not within limit (1-24)"
-      end
+      raise 'value not within limit (1-24)' unless value.to_i.between?(1, 24)
     end
   end
 
   newproperty(:keepalive_interval) do
     desc 'No of keepalive interval'
 
-    munge do |value|
-      value.to_i
-    end
+    munge(&:to_i)
 
     validate do |value|
-      unless value.to_i.between?(2, 300)
-        fail "value not within limit (2-300)"
-      end
+      raise 'value not within limit (2-300)' unless value.to_i.between?(2, 300)
     end
   end
 
   newproperty(:retry_interval) do
     desc 'No of keepalive attempts'
 
-    munge do |value|
-      value.to_i
-    end
+    munge(&:to_i)
 
     validate do |value|
-      unless value.to_i.between?(1, 300)
-        fail "value not within limit (1-300)"
-      end
+      raise 'value not within limit (1-300)' unless value.to_i.between?(1, 300)
     end
   end
 end
