@@ -10,12 +10,12 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 cnos_lag { '11':
-ensure => 'present',
+ensure     => 'present',
 interfaces =>  [ {
-                "lacp_prio" => 32768,
-                "lacp_timeout"=> "long",
-                "lag_mode"=> "lacp_active",
-                "if_name"=> "Ethernet1/23"
+                'lacp_prio'    => 32768,
+                'lacp_timeout' => 'long',
+                'lag_mode'     => 'lacp_active',
+                'if_name'      => 'Ethernet1/23'
             }],
-min_links => 2,
+min_links  => 2,
 }
