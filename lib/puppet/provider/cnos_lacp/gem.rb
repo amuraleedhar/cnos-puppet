@@ -11,28 +11,28 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-#require 'cnos-rbapi'
-#require 'cnos-rbapi/lacp'
+# require 'cnos-rbapi'
+# require 'cnos-rbapi/lacp'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
 Puppet::Type.type(:cnos_lacp).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage Lacp on Lenovo CNOS. Requires cnos-rbapi'
 
-  #confine operatingsystem: [:ubuntu]
+  # confine operatingsystem: [:ubuntu]
   mk_resource_methods
 
   def sys_prio
-    #conn = Connect.new('./config.yml')
-    #resp = Lacp.get_lacp(conn)
-    resp = Puppet::Provider::Cnos.get_lacp()
+    # conn = Connect.new('./config.yml')
+    # resp = Lacp.get_lacp(conn)
+    resp = Puppet::Provider::Cnos.get_lacp
     resp['sys_prio']
   end
 
-  def sys_prio=(value)
-    #conn = Connect.new('./config.yml')
+  def sys_prio=(_value)
+    # conn = Connect.new('./config.yml')
     params = { 'sys_prio' => resource[:sys_prio] }
-    #resp = Lacp.update_lacp(conn, params)
+    # resp = Lacp.update_lacp(conn, params)
     resp = Puppet::Provider::Cnos.update_lacp(params)
   end
 end
