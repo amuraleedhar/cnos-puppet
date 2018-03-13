@@ -9,7 +9,7 @@
 # THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS, WITHOUT
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
-cnos_sys{"sys":
-msg_interval => 15,
+cnos_sys{'sys':
+msg_interval     => 15,
 heartbeat_enable => 1
 }
