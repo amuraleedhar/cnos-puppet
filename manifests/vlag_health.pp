@@ -10,8 +10,8 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 cnos_vlag_hc {'vlag':
- keepalive_interval => 5,
- retry_interval => 10,
- keepalive_attempts => 15,
- ensure => absent
+   ensure            => absent
+  keepalive_interval => 5,
+  retry_interval     => 10,
+  keepalive_attempts => 15,
 }
