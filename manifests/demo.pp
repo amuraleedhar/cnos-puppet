@@ -11,22 +11,22 @@
 
 class cnos::demo {
   cnos_lag { '100':
-    ensure           => 'present',
-    interfaces       =>  [ {
+    ensure           => present,
+    interfaces       =>  [{
       'lacp_prio'    => 32768,
       'lacp_timeout' => 'long',
       'lag_mode'     => 'no_lacp',
-      'if_name'      => 'Ethernet1/1'
+      'if_name'      => 'Ethernet1/1',
     },
     {
       'lacp_prio'    => 32768,
       'lacp_timeout' => 'long',
       'lag_mode'     => 'no_lacp',
-      'if_name'      => 'Ethernet1/2'
+      'if_name'      => 'Ethernet1/2',
     }],
   }
   cnos_lag { '20':
-    ensure           => 'present',
+    ensure           => present,
     interfaces       =>  [{
       'lacp_prio'    => 32768,
       'lacp_timeout' => 'long',
@@ -41,7 +41,7 @@ class cnos::demo {
       }],
   }
   cnos_lag { '10':
-    ensure           => 'present',
+    ensure           => present,
     interfaces       =>  [{
       'lacp_prio'    => 32768,
       'lacp_timeout' => 'long',
@@ -63,12 +63,12 @@ class cnos::demo {
     port_aggregator  => 100,
   }
   cnos_vlag { '1':
-    ensure           => 'present',
+    ensure           => present,
     status           => 'enable',
     port_aggregator  => 10,
   }
   cnos_vlag { '2':
-    ensure           => 'present',
+    ensure           => present,
     status           => 'enable',
     port_aggregator  => 20,
   }
@@ -88,12 +88,12 @@ class cnos::demo {
     vlans            => [20,21],
   }
   cnos_vlan { '20':
-    ensure           => 'present',
+    ensure           => present,
     admin_state      => 'up',
     vlan_name        => 'test20',
   }
   cnos_vlan { '21':
-    ensure           => 'present',
+    ensure           => present,
     admin_state      => 'up',
     vlan_name        => 'test21',
   }
