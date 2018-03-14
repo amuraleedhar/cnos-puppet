@@ -28,6 +28,8 @@ Puppet::Type.newtype(:cnos_telemetry_track) do
 			    "track-device": 1
         	    }
            }'
+  apply_to_device
+  ensurable
 
   # Parameters
   newparam(:bst_track, namevar: true) do
