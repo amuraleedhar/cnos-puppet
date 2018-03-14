@@ -20,6 +20,9 @@ Puppet::Type.newtype(:cnos_sys) do
                      }
            }'
 
+  apply_to_device
+  ensurable
+	
   # Parameters
   newparam(:sys_feature, namevar: true) do
     desc 'setting system feature - should be "sys"'
