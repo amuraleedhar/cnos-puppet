@@ -24,6 +24,7 @@ Puppet::Type.newtype(:cnos_telemetry) do
 			 "async­full­reports": 1,
         	}
            }'
+  apply_to_device
   ensurable
 
   # Parameters
