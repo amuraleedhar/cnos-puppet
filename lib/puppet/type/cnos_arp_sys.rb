@@ -19,6 +19,9 @@ Puppet::Type.newtype(:cnos_arp_sys) do
               }
            }'
 
+  apply_to_device
+  ensurable
+
   # Parameters
   newparam(:title, namevar: true) do
     desc 'name of parameter'
