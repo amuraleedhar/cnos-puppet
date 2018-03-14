@@ -18,7 +18,9 @@ Puppet::Type.newtype(:cnos_vlag_isl) do
 			   port_aggregator => <port_aggregator>
                }
            }'
-
+  apply_to_device
+  ensurable
+	
   # Parameters
   newparam(:title, namevar: true) do
     desc 'name of parameter'
