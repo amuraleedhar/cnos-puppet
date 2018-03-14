@@ -25,6 +25,7 @@ Puppet::Type.newtype(:cnos_lag) do
  		       ]
         	    }
            }'
+  apply_to_device
   ensurable
 
   # Parameters
