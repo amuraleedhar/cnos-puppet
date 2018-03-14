@@ -11,8 +11,8 @@
 
 class cnos::lag_demo {
   cnos_lag { '100':
-    ensure       => 'present',
-    interfaces   =>  [ {
+    ensure       => present,
+    interfaces   => [ {
       'lag_mode' => 'no_lacp',
       'if_name'  => 'Ethernet1/1',
     },
@@ -23,8 +23,8 @@ class cnos::lag_demo {
     min_links    => 4,
   }
   cnos_lag { '20':
-    ensure       => 'present',
-    interfaces   =>  [ {
+    ensure       => present,
+    interfaces   => [ {
       'lag_mode' => 'no_lacp',
       'if_name'  => 'Ethernet1/9',
     },
@@ -34,8 +34,8 @@ class cnos::lag_demo {
     }],
   }
   cnos_lag { '10':
-    ensure       => 'present',
-    interfaces   =>  [ {
+    ensure       => present,
+    interfaces   => [ {
       'lag_mode' => 'no_lacp',
       'if_name'  => 'Ethernet1/17',
     },
