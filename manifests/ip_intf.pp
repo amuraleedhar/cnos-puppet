@@ -11,7 +11,7 @@
 
 class cnos::ip_intf {
   cnos_ip_intf{'Ethernet1/1':
-    ensure        => 'present', 
+    ensure        => present, 
     ip_addr       => '1.1.1.1',
     bridge_port   => 'no',
     if_name       => 'Ethernet1/1',
