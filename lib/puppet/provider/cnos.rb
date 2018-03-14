@@ -70,11 +70,6 @@ class Puppet::Provider::Cnos < Puppet::Provider
     resp
   end
 
-  def self.get_lag_prop(lag_id, params)
-    resp = Lag.update_lag(connection, lag_id, params)
-    resp
-  end
-
   def self.update_lag(lag_id, params)
     resp = Lag.update_lag(connection, lag_id, params)
     resp
