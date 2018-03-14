@@ -11,7 +11,7 @@
 
 class cnos::vlag_health {
   cnos_vlag_hc {'vlag':
-    ensure             => absent
+    ensure             => absent,
     keepalive_interval => 5,
     retry_interval     => 10,
     keepalive_attempts => 15,
