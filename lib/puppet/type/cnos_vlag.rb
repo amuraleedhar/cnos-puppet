@@ -19,6 +19,7 @@ Puppet::Type.newtype(:cnos_vlag) do
 		     status => enable/disable,
              }
            }'
+  apply_to_device
   ensurable
 
   # Parameters
