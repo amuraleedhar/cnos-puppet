@@ -19,7 +19,7 @@ class cnos::demo {
       'if_name'      => 'Ethernet1/1'
     },
     {
-      'lacp_prio"    => 32768,
+      'lacp_prio'    => 32768,
       'lacp_timeout' => 'long',
       'lag_mode'     => 'no_lacp',
       'if_name'      => 'Ethernet1/2'
@@ -31,7 +31,7 @@ class cnos::demo {
       'lacp_prio'    => 32768,
       'lacp_timeout' => 'long',
       'lag_mode'     => 'no_lacp',
-      'if_name"      => 'Ethernet1/9',
+      'if_name'      => 'Ethernet1/9',
      },
      {
        'lacp_prio'   => 32768,
@@ -43,7 +43,7 @@ class cnos::demo {
   cnos_lag { '10':
     ensure           => 'present',
     interfaces       =>  [{
-      'lacp_prio"    => 32768,
+      'lacp_prio'    => 32768,
       'lacp_timeout' => 'long',
       'lag_mode'     => 'no_lacp',
       'if_name'      => 'Ethernet1/17',
