@@ -23,6 +23,7 @@ Puppet::Type.newtype(:cnos_ip_intf) do
 		          vlans => "<admin_state>"
         	         }
            }'
+  apply_to_device
   ensurable
 
   # Parameters
