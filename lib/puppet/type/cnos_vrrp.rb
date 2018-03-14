@@ -27,6 +27,7 @@ Puppet::Type.newtype(:cnos_vrrp) do
 			    "v2_compt": "<v2_compt>"
         	       }
             }'
+  apply_to_device
   ensurable
 
   # Parameters
