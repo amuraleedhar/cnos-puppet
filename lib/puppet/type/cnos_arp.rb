@@ -18,6 +18,9 @@ Puppet::Type.newtype(:cnos_arp) do
 		     ageout_time => <ageout_time>,
              }
            }'
+  apply_to_device
+  ensurable
+
   # Parameters
   newparam(:if_name, namevar: true) do
     desc 'Ethernet interface name'
