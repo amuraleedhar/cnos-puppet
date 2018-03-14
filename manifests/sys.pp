@@ -1,7 +1,7 @@
 # Copyright (c) 2017, Lenovo. All rights reserved.
 #
 # This program and the accompanying materials are licensed and made available
-# under the terms and conditions of the 3-clause BSD License that accompanies 
+# under the terms and conditions of the 3-clause BSD License that accompanies
 # this distribution. The full text of the license may be found at
 #
 # https://opensource.org/licenses/BSD-3-Clause
@@ -11,7 +11,7 @@
 
 class cnos::sys {
   cnos_sys{'sys':
-    ensure           => 'present',
+    ensure           => present,
     msg_interval     => 15,
     heartbeat_enable => 1
   }
