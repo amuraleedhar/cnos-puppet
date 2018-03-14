@@ -11,11 +11,11 @@
 
 class cnos::vlag_demo {
   cnos_vlag_conf{'vlag_conf':
-    ensure => present
+    ensure => present,
     tier_id => 10,
   }
   cnos_vlag_isl {'vlag_isl':
-    port_aggregator => 100
+    port_aggregator => 100,
   }
   cnos_vlag { '1':
     ensure          => 'present',
