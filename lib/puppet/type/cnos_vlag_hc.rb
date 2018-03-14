@@ -23,6 +23,7 @@ Puppet::Type.newtype(:cnos_vlag_hc) do
 
         	    }
            }'
+  apply_to_device
   ensurable
 
   # Parameters
