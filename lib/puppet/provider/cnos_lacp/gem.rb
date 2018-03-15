@@ -21,18 +21,33 @@ Puppet::Type.type(:cnos_lacp).provide(:gem, parent: Puppet::Provider::Cnos) do
 
   # confine operatingsystem: [:ubuntu]
   mk_resource_methods
-
-  def sys_prio
-    # conn = Connect.new('./config.yml')
-    # resp = Lacp.get_lacp(conn)
+  def self.instances
     resp = Puppet::Provider::Cnos.get_lacp
+    return [] if resp.nil?
     resp['sys_prio']
   end
 
-  def sys_prio=(_value)
-    # conn = Connect.new('./config.yml')
+  def exists?
+    Puppet.debug('I am inside exists')
+    @property_hash[:ensure] == :present
+    # return true since resource is always present
+    true
+  end
+
+  def flush
+    Puppet.debug('I am inside flush')
+    params = {}
+    if @property_hash != {}
+      params = { 'sys_prio' => resource[:sys_prio] }
+      resp = Puppet::Provider::Cnos.update_lacp(params)
+    end
+    @property_hash = resource.to_hash
+  end
+
+  def create
+    Puppet.debug('I am inside create')
     params = { 'sys_prio' => resource[:sys_prio] }
-    # resp = Lacp.update_lacp(conn, params)
     resp = Puppet::Provider::Cnos.update_lacp(params)
+    @property_hash.clear
   end
 end
