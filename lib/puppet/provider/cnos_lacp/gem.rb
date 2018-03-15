@@ -11,8 +11,6 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-# require 'cnos-rbapi'
-# require 'cnos-rbapi/lacp'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
