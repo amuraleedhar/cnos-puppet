@@ -10,8 +10,6 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-# require 'cnos-rbapi'
-# require 'cnos-rbapi/arp'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
@@ -21,17 +19,33 @@ Puppet::Type.type(:cnos_arp).provide(:gem, parent: Puppet::Provider::Cnos) do
   # confine operatingsystem: [:ubuntu]
   mk_resource_methods
 
-  def ageout_time
-    # conn = Connect.new('./config.yml')
-    # resp = Arp.get_arp_intf_prop(conn, resource[:if_name])
+  def self.instances
     resp = Puppet::Provider::Cnos.get_arp_intf_prop(resource[:if_name])
+    return [] if resp.nil?
     resp['ageout_time']
   end
 
-  def ageout_time=(_value)
-    # conn = Connect.new('./config.yml')
+  def exists?
+    Puppet.debug('I am inside exists')
+    @property_hash[:ensure] == :present
+    # return true since resource is always present
+    true
+  end
+
+  def flush
+    Puppet.debug('I am inside flush')
+    params = {}
+    if @property_hash != {}
+      params = { 'if_name' => resource[:if_name], 'ageout_time' => resource[:ageout_time] }
+      resp = Puppet::Provider::Cnos.set_arp_intf_prop(resource[:if_name], params)
+    end
+    @property_hash = resource.to_hash
+  end
+
+  def create
+    Puppet.debug('I am inside create')
     params = { 'if_name' => resource[:if_name], 'ageout_time' => resource[:ageout_time] }
-    # resp = Arp.set_arp_intf_prop(conn, resource[:if_name], params)
     resp = Puppet::Provider::Cnos.set_arp_intf_prop(resource[:if_name], params)
+    @property_hash.clear
   end
 end
