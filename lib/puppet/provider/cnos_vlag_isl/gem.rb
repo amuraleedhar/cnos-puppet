@@ -10,27 +10,33 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-# require 'cnos-rbapi'
-# require 'cnos-rbapi/vlag'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
 Puppet::Type.type(:cnos_vlag_isl).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage Vlag on Lenovo CNOS. Requires cnos-rbapi'
 
-  # confine operatingsystem: [:ubuntu]
+  mk_resource_methods
 
-  def port_aggregator
-    # conn = Connect.new('./config.yml')
-    # resp = Vlag.get_vlag_isl(conn)
+  def self.instances
     resp = Puppet::Provider::Cnos.get_vlag_isl
+    return [] if resp.nil?
     resp['port_aggregator']
   end
 
-  def port_aggregator=(_value)
-    # conn = Connect.new('./config.yml')
-    params = { 'port_aggregator' => resource[:port_aggregator] }
-    # resp = Vlag.update_vlag_isl(conn, params)
-    resp = Puppet::Provider::Cnos.update_vlag_isl(params)
+  def exists?
+    Puppet.debug('I am inside exists')
+    @property_hash[:ensure] == :present
+    # return true since resource is always present
+    true
   end
-end
+
+  def flush
+    Puppet.debug('I am inside flush')
+    params = {}
+    if @property_hash != {}
+      params = { 'port_aggregator' => resource[:port_aggregator] }
+      resp = Puppet::Provider::Cnos.update_vlag_isl(params)
+    end
+    @property_hash = resource.to_hash
+  end
