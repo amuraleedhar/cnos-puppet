@@ -32,6 +32,6 @@ Puppet::Type.type(:cnos_arp).provide(:gem, parent: Puppet::Provider::Cnos) do
     # conn = Connect.new('./config.yml')
     params = { 'if_name' => resource[:if_name], 'ageout_time' => resource[:ageout_time] }
     # resp = Arp.set_arp_intf_prop(conn, resource[:if_name], params)
-    resp = Puppet::Provider::Cnos..set_arp_intf_prop(resource[:if_name], params)
+    resp = Puppet::Provider::Cnos.set_arp_intf_prop(resource[:if_name], params)
   end
 end
