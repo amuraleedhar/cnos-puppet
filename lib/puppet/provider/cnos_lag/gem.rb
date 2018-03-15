@@ -65,3 +65,4 @@ Puppet::Type.type(:cnos_lag).provide(:gem, parent: Puppet::Provider::Cnos) do
   def destroy
     Puppet::Provider::Cnos.delete_lag(resource[:lag_id])
   end
+end
