@@ -11,8 +11,6 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-# require 'cnos-rbapi'
-# require 'cnos-rbapi/telemetry'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
@@ -23,8 +21,6 @@ Puppet::Type.type(:cnos_telemetry).provide(:gem, parent: Puppet::Provider::Cnos)
 
   def self.instances
     instances = []
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_feature(conn)
     resp = Puppet::Provider::Cnos.get_bst_feature
     return 'no bst feature' unless resp
     Puppet.debug('BST Enable is ' + resp['bst_enable'].to_s)
@@ -81,9 +77,7 @@ Puppet::Type.type(:cnos_telemetry).provide(:gem, parent: Puppet::Provider::Cnos)
     puts @property_hash
     if @property_hash
       puts 'hello'
-      # conn = Connect.new('./config.yml')
       params = params_setup
-      # Telemetry.set_bst_feature(conn, params)
       Puppet::Provider::Cnos.set_bst_feature(params)
     end
     @property_hash = resource.to_hash
