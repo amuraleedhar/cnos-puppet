@@ -10,21 +10,16 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-# require 'cnos-rbapi'
-# require 'cnos-rbapi/vlag'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
 Puppet::Type.type(:cnos_vlag_hc).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage Vlag_health on Lenovo CNOS. Requires cnos-rbapi'
 
-  # confine operatingsystem: [:ubuntu]
   mk_resource_methods
 
   def self.instances
     instances = []
-    # conn = Connect.new('./config.yml')
-    # resp = Vlag.get_vlag_health(conn)
     resp = Puppet::Provider::Cnos.get_vlag_health
     return 'no vlag health' unless resp
     Puppet.debug('Peer Ip is ' + resp['peer_ip'].to_s)
@@ -44,7 +39,7 @@ Puppet::Type.type(:cnos_vlag_hc).provide(:gem, parent: Puppet::Provider::Cnos) d
     Puppet.debug('I am inside prefetch')
     vlag = instances
     resources.keys.each do |name|
-      if provider = vlag.find { |_vlag| TRUE }
+      if provider = vlag.find { |_vlag| true }
         Puppet.debug("Prefetch data coming here is #{provider}")
         resources[name].provider = provider
       end
@@ -56,7 +51,6 @@ Puppet::Type.type(:cnos_vlag_hc).provide(:gem, parent: Puppet::Provider::Cnos) d
     params = {}
     if @property_hash != {}
       puts @property_hash
-      # conn = Connect.new('./config.yml')
       params['peer_ip'] = resource[:peer_ip] unless resource[:peer_ip].nil?
       params['vrf'] = resource[:vrf] unless resource[:vrf].nil?
       unless resource[:retry_interval].nil?
@@ -81,11 +75,8 @@ Puppet::Type.type(:cnos_vlag_hc).provide(:gem, parent: Puppet::Provider::Cnos) d
   end
 
   def destroy
-    # restoring to default values since there is no delete
-    # conn = Connect.new('./config.yml')
     Puppet.debug('I am inside destroy')
     params = { 'keepalive_interval' => 5, 'keepalive_attempts' => 5, 'retry_interval' => 30 }
-    # Vlag.update_vlag_health(conn, params)
     Puppet::Provider::Cnos.update_vlag_health(params)
     @property_hash.clear
   end
