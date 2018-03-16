@@ -11,18 +11,17 @@
 
 Puppet::Type.newtype(:cnos_vlag_hc) do
   desc ' = {
- 	    Manage Vlag Health on Lenovo cnos.
-
- 	    Example:
- 	     cnos_vlag_hc {"vlaghealth":
-                        "keepalive_interval": 10,
- 			"retry_interval": 30,
- 			"peer_ip": "10.240.177.120",
- 			"vrf": "default",
- 			"keepalive_attempts": 3
-
-        	    }
+            Manage Vlag Health on Lenovo cnos.
+              Example:
+                cnos_vlag_hc {"vlaghealth":
+                  "keepalive_interval": 10,
+                  "retry_interval": 30,
+                  "peer_ip": "10.240.177.120",
+                  "vrf": "default",
+                  "keepalive_attempts": 3
+                }
            }'
+
   apply_to_device
   ensurable
 
