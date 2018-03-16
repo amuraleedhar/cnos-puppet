@@ -11,13 +11,12 @@
 
 Puppet::Type.newtype(:cnos_sys) do
   desc ' = {
- 	    Manage Telemetry system properties on Lenovo cnos.
-
- 	    Example:
- 	     cnos_sys{"sys":
-		       heartbeat_enable => 1,
-		       msg_interval => 10,
-                     }
+            Manage Telemetry system properties on Lenovo cnos.
+            Example:
+              cnos_sys{"sys":
+                heartbeat_enable => 1,
+                msg_interval => 10,
+              }
            }'
 
   apply_to_device
