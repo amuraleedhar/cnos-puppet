@@ -10,8 +10,6 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-# require 'cnos-rbapi'
-# require 'cnos-rbapi/telemetry'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
@@ -22,78 +20,56 @@ Puppet::Type.type(:cnos_telemetry_track).provide(:gem, parent: Puppet::Provider:
   mk_resource_methods
 
   def track_device
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-device']
   end
 
   def track_egress_port_service_pool
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-egress-port-service-pool']
   end
 
   def track_egress_uc_queue
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-egress-uc-queue']
   end
 
   def track_egress_rqe_queue
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-egress-rqe-queue']
   end
 
   def track_egress_cpu_queue
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-egress-cpu-queue']
   end
 
   def track_egress_mc_queue
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-egress-mc-queue']
   end
 
   def track_egress_service_pool
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-egress-service-pool']
   end
 
   def track_ingress_service_pool
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-ingress-service-pool']
   end
 
   def track_ingress_port_service_pool
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-ingress-port-service-pool']
   end
 
   def track_ingress_port_priority_group
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     resp['track-ingress-port-priority-group']
   end
 
   def track_peak_stats
-    # conn = Connect.new('./config.yml')
-    # resp = Telemetry.get_bst_tracking(conn)
     resp = Puppet::Provider::Cnos.get_bst_tracking
     puts 'here'
     resp['track-peak-stats']
@@ -118,79 +94,64 @@ Puppet::Type.type(:cnos_telemetry_track).provide(:gem, parent: Puppet::Provider:
   end
 
   def track_peak_stats=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_egress_port_service_pool=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_egress_uc_queue=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_egress_rqe_queue=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_egress_cpu_queue=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_ingress_port_service_pool=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_ingress_service_pool=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_egress_mc_queue=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_ingress_port_priority=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_egress_service_pool=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
 
   def track_device=(_value)
-    # conn = Connect.new('./config.yml')
     params = params_setup
-    # resp = Telemetry.set_bst_tracking(conn, params)
     resp = Puppet::Provider::Cnos.set_bst_tracking(params)
   end
+  
+  def exists?
+    Puppet.debug('I am inside exists')
+    @property_hash[:ensure] == :present
+    true
+  end
+
 end
