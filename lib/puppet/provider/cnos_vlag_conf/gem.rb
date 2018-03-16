@@ -10,21 +10,16 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-# require 'cnos-rbapi'
-# require 'cnos-rbapi/vlag'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
 Puppet::Type.type(:cnos_vlag_conf).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage Vlag_conf on Lenovo CNOS. Requires cnos-rbapi'
 
-  # confine operatingsystem: [:ubuntu]
   mk_resource_methods
 
   def self.instances
     instances = []
-    # conn = Connect.new('./config.yml')
-    # resp = Vlag.get_vlag_conf(conn)
     resp = Puppet::Provider::Cnos.get_vlag_conf
     return 'no vlag conf' unless resp
     Puppet.debug('Vlag Status is ' + resp['status'].to_s)
@@ -44,7 +39,7 @@ Puppet::Type.type(:cnos_vlag_conf).provide(:gem, parent: Puppet::Provider::Cnos)
     Puppet.debug('I am inside prefetch')
     vlag = instances
     resources.keys.each do |name|
-      if provider = vlag.find { |_vlag| TRUE }
+      if provider = vlag.find { |_vlag| true }
         Puppet.debug("Prefetch data coming here is #{provider}")
         resources[name].provider = provider
       end
@@ -56,7 +51,6 @@ Puppet::Type.type(:cnos_vlag_conf).provide(:gem, parent: Puppet::Provider::Cnos)
     params = {}
     if @property_hash != {}
       puts @property_hash
-      conn = Connect.new('./config.yml')
       params['status'] = resource[:status] unless resource[:status].nil?
       params['tier_id'] = resource[:tier_id] unless resource[:tier_id].nil?
       params['priority'] = resource[:priority] unless resource[:priority].nil?
@@ -66,7 +60,6 @@ Puppet::Type.type(:cnos_vlag_conf).provide(:gem, parent: Puppet::Provider::Cnos)
       unless resource[:startup_delay].nil?
         params['startup_delay'] = resource[:startup_delay]
       end
-      # resp = Vlag.update_vlag_conf(conn, params)
       resp = Puppet::Provider::Cnos.update_vlag_conf(params)
     end
     @property_hash = resource.to_hash
@@ -79,8 +72,6 @@ Puppet::Type.type(:cnos_vlag_conf).provide(:gem, parent: Puppet::Provider::Cnos)
   end
 
   def destroy
-    # restoring to default values since there is no delete
-    # conn = Connect.new('./config.yml')
     Puppet.debug('I am inside destroy')
     @property_hash.clear
   end
