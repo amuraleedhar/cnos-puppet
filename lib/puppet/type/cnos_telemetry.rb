@@ -11,19 +11,19 @@
 
 Puppet::Type.newtype(:cnos_telemetry) do
   desc ' = {
- 	    Manage Telemetry feature on Lenovo cnos.
-
- 	    Example:
- 	     cnos_telemetry {"bst":
-			 "bst­enable": 1,
-			 "send­async­reports": 1,
-			 "collection­interval": 300,
-			 "trigger­rate­limit": 5,
-			 "trigger­rate­limit­interval": 2,
-			 "send­snapshot­on­trigger": 1,
-			 "async­full­reports": 1,
-        	}
+            Manage Telemetry feature on Lenovo cnos.
+              Example:
+                cnos_telemetry {"bst":
+                  "bst­enable": 1,
+                  "send­async­reports": 1,
+                  "collection­interval": 300,
+                  "trigger­rate­limit": 5,
+                  "trigger­rate­limit­interval": 2,
+                  "send­snapshot­on­trigger": 1,
+                  "async­full­reports": 1,
+               }
            }'
+
   apply_to_device
   ensurable
 
