@@ -10,22 +10,18 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-# require 'cnos-rbapi'
-# require 'cnos-rbapi/ip_intf'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
 Puppet::Type.type(:cnos_ip_intf).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage IP interfaces on Lenovo CNOS. Requires cnos-rbapi'
 
-  # confine operatingsystem: [:ubuntu]
-
+ 
   mk_resource_methods
 
   def self.instances
     instances = []
-    # conn = Connect.new('./config.yml')
-    # resp = Ipintf.get_ip_prop_all(conn)
+    
     resp = Puppet::Provider::Cnos.get_ip_prop_all
     return 'no ip_intf' unless resp
     resp.each do |item|
@@ -58,9 +54,7 @@ Puppet::Type.type(:cnos_ip_intf).provide(:gem, parent: Puppet::Provider::Cnos) d
   def flush
     Puppet.debug('I am inside flush')
     if @property_hash
-      # conn = Connect.new('./config.yml')
       params = params_setup
-      # resp = Ipintf.update_ip_prop_intf(conn, resource[:if_name], params)
       resp = Puppet::Provider::Cnos.update_ip_prop_intf(resource[:if_name], params)
     end
     @property_hash = resource.to_hash
