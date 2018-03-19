@@ -16,14 +16,10 @@ require 'json'
 Puppet::Type.type(:cnos_vrrp).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage VRRP on Lenovo CNOS. Requires cnos-rbapi'
 
-  # confine operatingsystem: [:ubuntu]
-
   # mk_resource_methods
 
   def self.instances
     instances = []
-    # conn = Connect.new('./config.yml')
-    # resp = Vrrp.get_vrrp_prop_all(conn)
     resp = Puppet::Provider::Cnos.get_vrrp_prop_all
     return 'no vrrp' unless resp
     resp.each do |item|
@@ -84,19 +80,15 @@ Puppet::Type.type(:cnos_vrrp).provide(:gem, parent: Puppet::Provider::Cnos) do
   def flush
     Puppet.debug('I am inside flush')
     if @property_hash != {}
-      # conn = Connect.new('./config.yml')
       params = params_setup
-      # resp = Vrrp.update_vrrp_intf_vrid(conn, resource[:if_name], resource[:vr_id], params)
       resp = Puppet::Provider::Cnos.update_vrrp_intf_vrid(resource[:if_name], resource[:vr_id], params)
     end
     @property_hash = resource.to_hash
   end
 
   def create
-    # conn = Connect.new('./config.yml')
     Puppet.debug('I am inside create')
     params = params_setup
-    # Vrrp.create_vrrp_intf(conn, resource[:if_name], params)
     resp = Puppet::Provider::Cnos.create_vrrp_intf(resource[:if_name], params)
     @property_hash.clear
   end
@@ -108,8 +100,6 @@ Puppet::Type.type(:cnos_vrrp).provide(:gem, parent: Puppet::Provider::Cnos) do
 
   def destroy
     Puppet.debug('I am inside destroy')
-    # conn = Connect.new('./config.yml')
-    # Vrrp.del_vrrp_intf_vrid(conn, resource[:if_name], resource[:vr_id])
     resp = Puppet::Provider::Cnos.del_vrrp_intf_vrid(resource[:if_name], resource[:vr_id])
     @property_hash.clear
   end
