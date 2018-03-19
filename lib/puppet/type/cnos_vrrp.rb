@@ -39,10 +39,11 @@ Puppet::Type.newtype(:cnos_vrrp) do
     end
   end
 
-  newparam(:if_name) do
+  # Properties
+  newproperty(:if_name) do
     desc 'Interface name'
   end
-  # Properties
+
   newproperty(:ip_addr) do
     desc 'string 32 characters long'
   end
