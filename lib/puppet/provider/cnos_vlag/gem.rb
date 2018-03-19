@@ -11,22 +11,16 @@
 # WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 require 'puppet/type'
-# require 'cnos-rbapi'
-# require 'cnos-rbapi/vlag'
 require File.join(File.dirname(__FILE__), '../cnos')
 require 'json'
 
 Puppet::Type.type(:cnos_vlag).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage Vlag on Lenovo CNOS. Requires cnos-rbapi'
 
-  # confine operatingsystem: [:ubuntu]
-
   mk_resource_methods
 
   def self.instances
     instances = []
-    # conn = Connect.new('./config.yml')
-    # resp = Vlag.get_all_vlag(conn)
     resp = Puppet::Provider::Cnos.get_all_vlag
     return 'no vlags' unless resp
     resp.each do |item|
@@ -54,7 +48,6 @@ Puppet::Type.type(:cnos_vlag).provide(:gem, parent: Puppet::Provider::Cnos) do
 
   def params_setup
     params = {}
-    # conn = Connect.new('./config.yml')
     params['status'] = resource[:status] unless resource[:status].nil?
     unless resource[:port_aggregator].nil?
       params['port_aggregator'] = resource[:port_aggregator]
@@ -64,10 +57,8 @@ Puppet::Type.type(:cnos_vlag).provide(:gem, parent: Puppet::Provider::Cnos) do
 
   def flush
     if @property_hash
-      # conn = Connect.new('./config.yml')
       Puppet.debug('I am inside flush')
       params = params_setup
-      # resp = Vlag.update_vlag_inst(conn, resource[:inst_id], params)
       resp = Puppet::Provider::Cnos.update_vlag_inst(resource[:inst_id], params)
     end
     @property_hash = resource.to_hash
@@ -75,11 +66,9 @@ Puppet::Type.type(:cnos_vlag).provide(:gem, parent: Puppet::Provider::Cnos) do
 
   def create
     Puppet.debug('I am inside create')
-    # conn = Connect.new('./config.yml')
     params = { 'inst_id' => resource[:inst_id].to_i,
                'port_aggregator' => resource[:port_aggregator],
                'status' => resource[:status] }
-    # Vlag.create_vlag_inst(conn, params)
     Puppet::Provider::Cnos.create_vlag_inst(params)
     @property_hash.clear
   end
@@ -90,9 +79,7 @@ Puppet::Type.type(:cnos_vlag).provide(:gem, parent: Puppet::Provider::Cnos) do
   end
 
   def destroy
-    # conn = Connect.new('./config.yml')
     Puppet.debug('I am inside destroy' + :inst_id.to_s)
-    # Vlag.delete_vlag_inst(conn, resource[:inst_id])
     Puppet::Provider::Cnos.delete_vlag_inst(resource[:inst_id])
     @property_hash.clear
   end
