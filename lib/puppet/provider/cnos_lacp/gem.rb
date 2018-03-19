@@ -17,7 +17,6 @@ require 'json'
 Puppet::Type.type(:cnos_lacp).provide(:gem, parent: Puppet::Provider::Cnos) do
   desc 'Manage Lacp on Lenovo CNOS. Requires cnos-rbapi'
 
-  # confine operatingsystem: [:ubuntu]
   mk_resource_methods
   def self.instances
     resp = Puppet::Provider::Cnos.get_lacp
