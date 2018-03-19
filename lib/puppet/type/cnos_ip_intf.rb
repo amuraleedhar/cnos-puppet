@@ -31,11 +31,11 @@ Puppet::Type.newtype(:cnos_ip_intf) do
     desc 'Ethernet interface name'
   end
 
-  newparam(:vrf_name) do
+  # Properties
+  newproperty(:vrf_name) do
     desc 'string 32 characters long'
   end
 
-  # Properties
   newproperty(:bridge_port) do
     desc 'one of yes/no'
   end
