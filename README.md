@@ -90,3 +90,20 @@ At this point, your set up should be up and fielding requests.
 #### Private classes
 
 ToDO
+
+#### Types
+
+ToDO
+
+### Limitations
+
+ToDO
+
+### Development
+
+ToDO
+
+### Support
+
+
+ToDO
