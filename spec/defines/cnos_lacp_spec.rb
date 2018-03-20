@@ -34,6 +34,7 @@ describe 'cnos_lacp', type: :type do
   end
 
   it 'should support :present as a value to :ensure' do
-    type_class.new(name: 'The LACP System Priority is ', sys_prio: '32769', ensure: :present)
+    type_class.new(name: 'The LACP System Priority is ',
+                   sys_prio: '32769', ensure: :present)
   end
 end
