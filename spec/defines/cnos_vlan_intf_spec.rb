@@ -36,6 +36,7 @@ describe 'cnos_vlan_intf', type: :type do
   end
 
   it 'should support :present as a value to :ensure' do
-    type_class.new(name: 'VLAN Interface Mapping', if_name: 'p0', ensure: :present)
+    type_class.new(name: 'VLAN Interface Mapping',
+                   if_name: 'p0', ensure: :present)
   end
 end
