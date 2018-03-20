@@ -41,7 +41,7 @@ describe 'cnos_telemetry', type: :type do
   end
 
   it 'should support :present as a value to :ensure' do
-    type_class.new(name: 'BST Features are ', bst_feature: 'bst_feature', ensure: :present)
+    type_class.new(name: 'BST Features are ',
+                   bst_feature: 'bst_feature', ensure: :present)
   end
 end
- 
