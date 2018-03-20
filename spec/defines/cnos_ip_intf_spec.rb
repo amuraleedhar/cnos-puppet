@@ -39,6 +39,7 @@ describe 'cnos_ip_intf', type: :type do
   end
 
   it 'should support :present as a value to :ensure' do
-    type_class.new(name: 'Interface IP Mapping is ', if_name: 'Ethernet1/11', ensure: :present)
+    type_class.new(name: 'Interface IP Mapping is ',
+                   if_name: 'Ethernet1/11', ensure: :present)
   end
 end
