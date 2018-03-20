@@ -35,6 +35,7 @@ describe 'cnos_sys', type: :type do
   end
 
   it 'should support :present as a value to :ensure' do
-    type_class.new(name: 'Telemetry System Configuration', sys_feature: 'sys', ensure: :present)
+    type_class.new(name: 'Telemetry System Configuration',
+                   sys_feature: 'sys', ensure: :present)
   end
 end
