@@ -15,7 +15,6 @@ class cnos::vrrp {
     prio              => 100,
     vr_id             => 1,
     if_name           => 'Ethernet1/11',
-    track_if          => 'Ethernet1/12',
     preempt           => 'no',
     admin_state       => 'down',
     ip_addr           => '1.1.1.25',
