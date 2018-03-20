@@ -11,7 +11,7 @@
 
 class cnos::vrrp {
   cnos_vrrp{ '1' :
-    ensure            => present, 
+    ensure            => present,
     prio              => 100,
     vr_id             => 1,
     if_name           => 'Ethernet1/11',
