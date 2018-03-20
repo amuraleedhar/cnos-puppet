@@ -24,10 +24,13 @@ Before you can use the CNOS module, you must create a proxy system able to run p
 
 Create a device.conf file in the Puppet conf directory (either /etc/puppet or /etc/puppetlabs/puppet) on the Puppet agent. Within your device.conf, you must have:
 
+~~~
 [cnos.switch.labs.lenovo.com]
 type cnos
 url https://<USERNAME>:<PASSWORD>@<IP ADDRESS OF CNOS Switch>/
-In the above example, <USERNAME> and <PASSWORD> refer to Puppet's login for the device. <cnos.switch.labs.lenovo.com> is the domain name of the switch 
+~~~
+
+In the above example, `<USERNAME>` and `<PASSWORD>` refer to Puppet's login for the device. And cnos.switch.labs.lenovo.com is the domain name of the switch 
 
 Additionally, you must install the lenovo-rbapi gem into the Puppet Ruby environment on the proxy host (Puppet agent) by declaring the cnos-rbapi class on that host. If you do not install the lenovo-rbapi gem, version 0.0.5, the module will not work.
 
