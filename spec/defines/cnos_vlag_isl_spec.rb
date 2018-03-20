@@ -34,6 +34,7 @@ describe 'cnos_vlag_isl', type: :type do
   end
 
   it 'should support :present as a value to :ensure' do
-    type_class.new(name: 'VLAG ISL Configuration', title: 'vlag_isl', ensure: :present)
+    type_class.new(name: 'VLAG ISL Configuration',
+                   title: 'vlag_isl', ensure: :present)
   end
 end
