@@ -34,6 +34,7 @@ describe 'cnos_arp_sys', type: :type do
   end
 
   it 'should support :present as a value to :ensure' do
-    type_class.new(name: 'ARP Configuration for ', title: 'arp_sys', ensure: :present)
+    type_class.new(name: 'ARP Configuration for ',
+                   title: 'arp_sys', ensure: :present)
   end
 end
