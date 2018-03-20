@@ -34,6 +34,7 @@ describe 'cnos_arp', type: :type do
   end
 
   it 'should support :present as a value to :ensure' do
-    type_class.new(name: 'ARP Configuration for ', if_name: 'Ethernet1/1', ensure: :present)
+    type_class.new(name: 'ARP Configuration for ',
+                   if_name: 'Ethernet1/1', ensure: :present)
   end
 end
