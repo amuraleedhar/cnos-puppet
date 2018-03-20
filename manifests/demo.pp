@@ -38,7 +38,7 @@ class cnos::demo {
       'lacp_timeout' => 'long',
       'lag_mode'     => 'no_lacp',
       'if_name'      => 'Ethernet1/10',
-     }],
+    }],
   }
   cnos_lag { '10':
     ensure     => present,
