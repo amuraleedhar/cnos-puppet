@@ -85,8 +85,34 @@ At this point, your set up should be up and fielding requests.
 
 #### Public classes
 
-* [cnos::arp](#cnos%3A%3Aarp): Handles Arp on Lenovo CNOS for interfaces..
+* [cnos::arp](#cnos::arp): Handles Arp on Lenovo CNOS for interfaces.
+### cnos::arp
+
+Handles Arp on Lenovo CNOS for interfaces.
+For details regarding parameters, please refer to [cnos_arp](#cnos_arp).
+
+#### Sample Manifest 
+```ruby
+class cnos::arp {
+  cnos_arp{'Ethernet1/13':
+    ageout_time => 1500,
+  }
+}
+```
 * [cnos::arp_sys](#cnos%3A%3Aarp_sys): Handles Arp on Lenovo CNOS for system.
+### cnos::arp_sys
+
+Handles Arp on Lenovo CNOS for system
+For details regarding parameters, please refer to [cnos_arp_sys](#cnos_arp).
+
+#### Sample Manifest 
+```ruby
+class cnos::arp_sys {
+  cnos_arp_sys{'arp_sys':
+    ageout_time => 1000
+  }
+}
+```
 * [cnos::bst_feature](#cnos%3A%3Abst_feature): Handles  BST feature on Lenovo CNOS. Requires cnos-rbapi.
 * [cnos::bst_track](#cnos%3A%3Abst_track): Handles BST Tracking on Lenovo CNOS.
 * [cnos::ip_intf](#cnos%3A%3Aip_intf): Handles IP interfaces on Lenovo CNOS
@@ -105,32 +131,8 @@ At this point, your set up should be up and fielding requests.
 
 None.
 
-### cnos%3A%3Aarp
 
-Handles Arp on Lenovo CNOS for interfaces.
-For details regarding parameters, please refer to [cnos_arp](#cnos_arp).
 
-#### Sample Manifest 
-```ruby
-class cnos::arp {
-  cnos_arp{'Ethernet1/13':
-    ageout_time => 1500,
-  }
-}
-```
-### cnos::arp_sys
-
-Handles Arp on Lenovo CNOS for system
-For details regarding parameters, please refer to [cnos_arp_sys](#cnos_arp).
-
-#### Sample Manifest 
-```ruby
-class cnos::arp_sys {
-  cnos_arp_sys{'arp_sys':
-    ageout_time => 1000
-  }
-}
-```
 
 ### cnos::bst_feature
 
@@ -176,7 +178,7 @@ class cnos::bst_track {
 }
 ```
 
-### cnos::cnos::ip_intf
+### cnos::ip_intf
 
 Handles IP interfaces on Lenovo CNOS
 For details regarding parameters, please refer to [cnos_ip_intf](#cnos_ip_intf).
@@ -195,7 +197,6 @@ class cnos::ip_intf {
     ip_prefix_len => 24
   }
 }
-
 ```
 
 ### cnos::cnos::lacp
@@ -210,7 +211,6 @@ class cnos::lacp {
     sys_prio => '32769',
   }
 }
-
 ```
 
 ### cnos::cnos::lag
@@ -232,7 +232,6 @@ class cnos::lag {
     min_links  => 2,
   }
 }
-
 ```
 
 ### cnos::cnos::sys
@@ -249,7 +248,6 @@ class cnos::sys {
     heartbeat_enable => 1
   }
 }
-
 ```
 
 ### cnos::cnos::vlag_health
