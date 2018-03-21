@@ -93,7 +93,661 @@ ToDO
 
 #### Types
 
-ToDO
+* [cnos_arp](#cnos_arp): Manage ARP properties on interfaces of Lenovo cnos.
+* [cnos_arp_sys](#cnos_arp_sys): Manage Arp propertiesof system on Lenovo cnos.
+* [cnos_ip_intf](#cnos_ip_intf): Manage Ip intf on Lenovo cnos.
+* [cnos_lacp](#cnos_lacp): Manage Lacp on Lenovo cnos.
+* [cnos_lag](#cnos_lag): Manage lags on Lenovo cnos.
+* [cnos_sys](#cnos_sys): Manage Telemetry system properties on Lenovo cnos.
+* [cnos_telemetry](#cnos_telemetry): Manage Telemetry feature on Lenovo cnos.
+* [cnos_telemetry_track](#cnos_telemetry_track): Manage Telemetry tracking on Lenovo cnos.
+* [cnos_vlag_conf](#cnos_vlag_conf): Manage Vlag Configuration on Lenovo cnos.
+* [cnos_vlag_hc](#cnos_vlag_hc): Manage Vlag Health on Lenovo cnos.
+* [cnos_vlag_isl](#cnos_vlag_isl): Manage vlag isl on Lenovo cnos.
+* [cnos_vlag](#cnos_vlag): Manage Vlags on Lenovo cnos.
+* [cnos_vrrp](#cnos_vrrp): Manage Vrrp on Lenovo cnos.
+* [cnos_vlan_intf](#cnos_vlan_intf): Manage Vlan -Interface mapping on Lenovo cnos.
+* [cnos_vlan](#cnos_vlan): Manage Vlans on Lenovo cnos.
+
+### cnos_arp
+
+Manage ARP properties on interfaces of Lenovo cnos.
+
+#### Parameters
+
+##### if_name 
+
+IP interface name.
+
+Valid options: String
+
+Note: The interface must exist.
+
+#### Properties
+
+##### ageout_time
+
+The global ARP entry age-out time, in seconds
+
+Valid options: An integer from 60-28800. Default value: 1500 seconds.
+
+
+### cnos_arp_sys
+
+Manage Arp properties of system on Lenovo cnos.
+
+#### Parameters
+
+##### title 
+
+Name of parameter
+
+Valid options: None
+
+#### Properties
+
+##### ageout_time
+
+The global ARP entry age-out time, in seconds
+
+Valid options: An integer from 60-28800. Default value: 1500 seconds.
+
+### cnos_ip_intf
+
+Manage Ip intf on Lenovo cnos.
+
+#### Parameters
+
+##### if_name
+
+Ethernet interface name
+
+Valid options: Valid String
+Note: The interface must exist.
+
+#### Properties
+
+##### vrf_name
+
+The name of the VRF to which the interface belongs.
+
+Valid options: String
+Note: The named VRF must exist.
+
+##### bridge_port
+
+Whether or not the port is a bridge port.
+
+Valid options: One of yes (default), no.
+
+##### mtu
+
+The maximum transmission unit, in bytes.
+
+Valid options: An integer from 64-9216. Default value: 1500.
+
+
+##### ip_addr
+
+IP address for the interface.
+
+Valid options: IP Address
+   
+##### ip_prefix_len
+
+IP address mask.
+
+Valid options: A positive integer from 1-32.
+
+##### admin_state
+
+The admin status.
+
+Valid options: One of up, down.
+
+
+### cnos_lacp
+
+Manage Lacp on Lenovo cnos.
+
+#### Parameters
+
+##### title
+
+Name of parameter.
+
+Valid options: None
+
+#### Properties
+
+##### sys_prio
+
+LACP priority for the physical port.
+
+Valid options: An integer from 1-65535. Default value: 32768.
+
+### cnos_lag
+
+Manage lags on Lenovo cnos.
+
+#### Parameters
+
+##### lag_id
+
+LAG identifier.
+
+Valid options: An integer from 1-65535
+
+#### Properties
+
+##### interfaces
+
+Array of interfaces dictionary. 
+
+Valid options: Physical interface members of the LAG; an integer from 1-32.
+
+##### min_links
+
+LACP minimum links number.
+
+Valid options: An integer from 1-32. Default value: 1
+
+### cnos_sys
+
+Manage Telemetry system properties on Lenovo cnos.
+
+#### Parameters
+
+##### sys_feature
+
+Setting system feature - should be "sys"
+
+Valid options: sys.
+
+#### Properties
+
+##### heartbeat_enable
+
+When enabled, the Agent asynchronously sends the registration
+and heartbeat message to the collector. 
+
+Valid options: One of: 0: disable heartbeat 1: enable heartbeat (default value)
+
+##### msg_interval
+
+Determines the interval with which the registration and heartbeat
+messages are sent to the collector; units of seconds from 1-600.
+Default value: 5 seconds.
+
+Valid options: See above.
+
+
+### cnos_telemetry
+
+Manage Telemetry feature on Lenovo cnos
+
+#### Parameters
+
+##### bst_feature
+
+setting bst feature - should be "bst
+
+Valid options: None.
+
+#### Properties
+
+##### bst_enable
+
+Set to 1 to enable BST, 0 to disable it. Enabling BST
+allows the switch to track buffer utilization
+statistics.
+
+Valid options: See above.
+
+##### send_async_reports
+
+Set to 1 to enable the transmission of periodic
+asynchronous reports, 0 to disable this feature.   
+
+Valid options: See above.
+
+##### async_full_report
+
+Set to 1 to enable the async full report feature, 0 to
+disable it.
+
+Valid options: See above.
+Note : When this feature is enabled, the agent sends full
+reports containing data related to all counters.
+When the feature is disabled, the agent sends
+incremental reports containing only the counters
+that have changed since the last report.
+
+##### collection_interval
+
+The collection interval, in seconds. This defines how
+frequently periodic reports will be sent to the
+configured controller.
+
+Valid options: See above.
+
+##### trigger_rate_limit
+
+The trigger rate limit, which defines the maximum
+number of threshold-driven triggered reports that
+the agent is allowed to send to the controller per
+trigger-rate-limit-interval; an integer
+from 1-5.
+Valid options: See above
+
+##### trigger_rate_limit_interval
+
+The trigger rate limit interval, in seconds; an integer
+from 10-60.
+
+Valid options: See above.
+
+##### send_snapshot_on_trigger
+
+Set to 1 to enable sending a complete snapshot of all
+buffer statistics counters when a trigger happens, 0
+to disable this feature.
+
+Valid options: See above
+
+##### async_full_reports
+
+Set to 1 to enable the async full report feature, 0 to
+disable it.
+Valid options: See above.
+Note: When this feature is enabled, the agent sends full
+reports containing data related to all counters.
+When the feature is disabled, the agent sends
+incremental reports containing only the counters
+that have changed since the last report.
+
+
+### cnos_telemetry_track
+
+Manage Telemetry tracking on Lenovo cnos
+
+#### Parameters
+
+##### bst_track
+
+Setting bst tracking - should be "bst
+
+Valid options: bst
+
+#### Properties
+
+##### track_peak_stats
+
+1 to peak statistics tracking, 0 to disable this
+feature
+Valid options: See above.
+
+##### track_ingress_port_priority_group
+
+1 to enable ingress port priority group tracking,
+0 to disable this feature
+
+Valid options: See above.
+
+##### track_ingress_port_service_pool
+
+1 to enable ingress port service pool tracking, 0
+to disable this feature
+
+Valid options: See above.
+
+##### track_ingress_service_pool
+
+1 to enable ingress service pool tracking, 0 to
+disable this feature
+
+Valid options: See above.
+
+##### track_egress_port_service_pool
+
+1 to enable egress port service pool tracking, 0
+to disable this feature
+
+Valid options: See above
+
+##### track_egress_service_pool
+
+1 to enable egress service pool tracking, 0 to
+disable this feature
+
+Valid options: See above.
+
+##### track_egress_uc_queue
+
+Set to 1 to enable egress unicast queue tracking,
+0 to disable this feature
+
+Valid options: See above.
+
+##### track_egress_rqe_queue
+
+1 to enable egress RQE queue tracking, 0 to
+disable this feature
+
+Valid options: See above.
+
+##### track_egress_cpu_queue
+
+Set to 1 to enable egress CPU queue tracking, 0
+to disable this feature
+
+Valid options: See above.
+
+##### track_egress_mc_queue
+
+Set to 1 to enable egress multicast queue
+tracking, 0 to disable this feature
+
+Valid options: See above.
+
+##### track_device
+
+1 to enable tracking of this device, 0 to disable
+this feature
+
+Valid options: See above
+
+
+### cnos_vlag_conf
+
+Manage Vlag Configuration on Lenovo cnos
+
+#### Parameters
+
+##### title
+
+name of parameter
+
+Valid options: None.
+
+#### Properties
+
+##### status
+
+Whether the vLAG is enabled or disabled.
+
+Valid options: One of enable, disable. Default value; disable
+
+##### tier_id
+
+vLAG tier ID value.
+
+Valid options: An intger from 1-512. Default value: 0.
+
+##### priority
+
+vLAG priority value.
+
+Valid options: An integer from 0-65535. Default value: 0.
+
+##### auto_recover
+
+Time interval, in seconds.
+
+Valid options: An integer from 240-3600. Default value: 300.
+
+##### startup_delay
+
+Delay time, in seconds.
+
+Valid options: An integer from 0-3600. Default value: 120.
+
+### cnos_vlag_hc
+
+Manage Vlag Health on Lenovo cnos.
+
+#### Parameters
+
+##### title
+
+name of parameter
+
+Valid options: None.
+
+#### Properties
+
+##### peer_ip
+
+IP address of peer switch. This can be the management IP address
+of the peer switch.
+
+Valid options: IP Address.
+
+##### vrf
+
+VRF context string.
+
+Valid options: String.
+
+##### keepalive_attempts
+
+Number of keepalive attempts made before declaring the peer is
+down.
+
+Valid options: An integer from 1-24. Default value: 3.
+
+##### keepalive_interval
+
+Time interval, in seconds
+
+Valid options: an integer from 2-300. Default value: 5.
+
+##### retry_interval
+
+Time interval, in seconds. 
+
+Valid options: An integer from 1-300. Default value:30.
+
+
+### cnos_vlag_isl
+
+Manage vlag isl on Lenovo cnos.
+
+#### Parameters
+
+##### title
+
+name of parameter
+
+Valid options: None.
+
+#### Properties
+
+##### port_aggregator
+
+LAG identifier.
+
+Valid options: An integer from 1-4096.
+
+### cnos_vlag
+
+Manage Vlags on Lenovo cnos. 
+
+#### Parameters
+
+##### inst_id
+
+vLAG instance ID number.
+
+Valid options: An integer from 1-64.
+
+#### Properties
+
+##### port_aggregator
+
+LAG identifier.
+
+Valid options: An integer from 1-4096.
+
+#### status
+
+vLAG status.
+
+Valid range: One of enable, disable. Default value: disable.
+
+### cnos_vrrp
+
+Manage Vrrp on Lenovo cnos. 
+
+#### Parameters
+
+##### vr_id
+
+The VRRP session Virtual Router (VR) ID.
+
+Valid options: An integer from 1-255. Default value is 0.
+
+##### if_name
+
+Interface name.
+
+Valid options: A valid interface name.
+
+Note: The interface must exist.
+
+#### Properties
+
+##### ad_intvl
+
+Advertisement interval (The number of centi-seconds between
+advertisements for VRRPv3);
+
+Valid options: a multiple of 5 from 5-4095. Default value: 100 centi-seconds.
+
+#### preempt
+
+Enable the preemption of a lower priority master
+
+Valid range: of yes (default) , no.
+
+##### prio
+
+The priority of the VR on the switch
+
+Valid options: An integer from 1-254.Default value: 100.
+
+##### admin_state
+
+Enable the VR
+
+Valid options: one of up (default), down.
+
+##### track_if
+
+The interface to track by this VR
+
+Valid options: Default value: none.
+Note: If an interface is specified, it must exist.
+
+##### admin_state
+
+Enable the VR
+
+Valid options: one of up (default), down.
+
+##### track_if
+
+The interface to track by this VR
+
+Valid options: Default value: none.
+Note: If an interface is specified, it must exist.
+
+##### accept_mode
+
+Enables or disables the accept mode for this session. 
+
+Valid options: one of yes (default), no.
+
+##### v2_compt
+
+Enables backward compatibility for VRRPv2 for the VR
+
+Valid options: one of yes, no (default).
+
+##### switch_back_delay
+
+The switch back delay interval
+
+Valid options: an integer from 1-500000, or 0 to disable (default).
+
+### cnos_vlan_intf
+
+Manage Vlan -Interface mapping on Lenovo cnos. 
+
+#### Parameters
+
+##### if_name
+
+Ethernet interface name.
+
+Valid options: A valid Ethernet interface name.
+
+Note: The Ethernet interface must exist.
+
+#### Properties
+
+##### bridgeport_mode
+
+Sets the bridgeport mode value.
+
+Valid options: 'access' or 'trunk'.
+
+#### pvid
+
+Native VLAN for a port (he access VLAN for access ports or the
+native VLAN for trunk ports).
+
+Valid range: an integer from 1-3999. Default value is 1
+
+##### vlans
+
+VLAN memberships
+
+Valid options: either all, none, or an integer from 1-3999
+
+### cnos_vlan
+
+Manages virtual LANs on the CNOS device. 
+
+#### Parameters
+
+##### name
+
+Specifies the Name of VLAN.
+
+Valid options: The name must be between 1 and 64 characters long.
+
+#### Properties
+
+##### vlan_id
+
+Sets the vlan id.
+
+Valid options: An integer value within limit (1-3999).
+
+#### vlan_name
+
+Specifies the Name of VLAN.
+
+Valid range: The name must be between 1 and 64 characters long.
+
+##### admin_state
+
+Specifies the state of vlan.
+
+Valid options: 'up' or 'down'.
+
+
 
 ### Limitations
 
