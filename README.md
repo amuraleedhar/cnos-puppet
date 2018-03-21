@@ -86,7 +86,7 @@ At this point, your set up should be up and fielding requests.
 #### Public classes
 
 * [cnos::arp](#cnos::arp): Handles Arp on Lenovo CNOS for interfaces..
-* [cnos::arp_sys](#cnos::arp_sys): Handles  Arp on Lenovo CNOS for system.
+* [cnos::arp_sys](#cnos::arp_sys): Handles Arp on Lenovo CNOS for system.
 * [cnos::bst_feature](#cnos::bst_feature): Handles  BST feature on Lenovo CNOS. Requires cnos-rbapi.
 * [cnos::bst_track](#cnos::bst_track): Handles BST Tracking on Lenovo CNOS.
 * [cnos::ip_intf](#cnos::ip_intf): Handles IP interfaces on Lenovo CNOS
@@ -103,12 +103,12 @@ At this point, your set up should be up and fielding requests.
 
 #### Private classes
 
-ToDO
+None.
 
 ### cnos::arp
 
 Handles Arp on Lenovo CNOS for interfaces.
-For details regarding parameters please refer to [cnos_arp](#cnos_arp).
+For details regarding parameters, please refer to [cnos_arp](#cnos_arp).
 
 #### Sample Manifest 
 ```ruby
@@ -117,6 +117,249 @@ class cnos::arp {
     ageout_time => 1500,
   }
 }
+```
+### cnos::arp_sys
+
+Handles Arp on Lenovo CNOS for system
+For details regarding parameters, please refer to [cnos_arp_sys](#cnos_arp).
+
+#### Sample Manifest 
+```ruby
+class cnos::arp_sys {
+  cnos_arp_sys{'arp_sys':
+    ageout_time => 1000
+  }
+}
+```
+
+### cnos::bst_feature
+
+Handles  BST feature on Lenovo CNOS.
+For details regarding parameters, please refer to [cnos_telemetry](#cnos_telemetry).
+
+#### Sample Manifest 
+```ruby
+class cnos::bst_feature {
+  cnos_telemetry{ 'bst_feature':
+    collection_interval         => 70,
+    send_async_reports          => 0,
+    send_snapshot_on_trigger    => 1,
+    trigger_rate_limit          => 1,
+    async_full_report           => 1,
+    trigger_rate_limit_interval => 10,
+    bst_enable                  => 0,
+  }
+}
+```
+
+### cnos::bst_track
+
+Handles BST Tracking on Lenovo CNOS.
+For details regarding parameters, please refer to [cnos_telemetry_track](#cnos_telemetry_track).
+
+#### Sample Manifest 
+```ruby
+class cnos::bst_track {
+  cnos_telemetry_track{'bst':
+    track_egress_port_service_pool    =>  0,
+    track_egress_uc_queue             =>  0,
+    track_egress_rqe_queue            =>  0,
+    track_egress_cpu_queue            =>  0,
+    track_ingress_port_service_pool   =>  0,
+    track_ingress_service_pool        =>  0,
+    track_egress_mc_queue             =>  0,
+    track_peak_stats                  =>  1,
+    track_ingress_port_priority_group =>  0,
+    track_egress_service_pool         =>  0,
+    track_device                      =>  0,
+  }
+}
+```
+
+### cnos::cnos::ip_intf
+
+Handles IP interfaces on Lenovo CNOS
+For details regarding parameters, please refer to [cnos_ip_intf](#cnos_ip_intf).
+
+#### Sample Manifest 
+```ruby
+class cnos::ip_intf {
+  cnos_ip_intf{'Ethernet1/11':
+    ensure        => present,
+    ip_addr       => '1.2.3.4',
+    bridge_port   => 'no',
+    if_name       => 'Ethernet1/11',
+    mtu           => 1402,
+    vrf_name      => 'default',
+    admin_state   => 'up',
+    ip_prefix_len => 24
+  }
+}
+
+```
+
+### cnos::cnos::lacp
+
+Handles Lacp on Lenovo CNOS
+For details regarding parameters, please refer to [cnos_lacp](#cnos_lacp).
+
+#### Sample Manifest 
+```ruby
+class cnos::lacp {
+  cnos_lacp {'sys_prio':
+    sys_prio => '32769',
+  }
+}
+
+```
+
+### cnos::cnos::lag
+
+Handles lag on Lenovo CNOS
+For details regarding parameters, please refer to [cnos_lag](#cnos_lag).
+
+#### Sample Manifest 
+```ruby
+class cnos::lag {
+  cnos_lag { '11':
+    ensure     => 'present',
+    interfaces =>  [ {
+      'lacp_prio'    => 32769,
+      'lacp_timeout' => 'long',
+      'lag_mode'     => 'lacp_active',
+      'if_name'      => 'Ethernet1/23',
+    }],
+    min_links  => 2,
+  }
+}
+
+```
+
+### cnos::cnos::sys
+
+Handles Telemetry System properties on Lenovo CNOS
+For details regarding parameters, please refer to [cnos_sys](#cnos_sys).
+
+#### Sample Manifest 
+```ruby
+class cnos::sys {
+  cnos_sys{'sys':
+    ensure           => present,
+    msg_interval     => 15,
+    heartbeat_enable => 1
+  }
+}
+
+```
+
+### cnos::cnos::vlag_health
+
+Handles Vlag_health on Lenovo CNOS
+For details regarding parameters, please refer to [cnos_vlag_health](#cnos_vlag_health).
+
+#### Sample Manifest 
+```ruby
+class cnos::vlag_health {
+  cnos_vlag_hc {'vlag':
+    ensure             => absent,
+    keepalive_interval => 5,
+    retry_interval     => 10,
+    keepalive_attempts => 15,
+  }
+}
+
+```
+
+### cnos::cnos::vlag_isl
+
+Handles vlag isl on Lenovo cnos
+For details regarding parameters, please refer to [cnos_vlag_isl](#cnos_vlag_isl).
+
+#### Sample Manifest 
+```ruby
+class cnos::vlag_isl {
+  cnos_vlag_isl {'vlag_isl':
+    port_aggregator => 10
+  }
+}
+
+```
+
+### cnos::cnos::vlag
+
+Handles Vlags on Lenovo cnos.
+For details regarding parameters, please refer to [cnos_vlag](#cnos_vlag).
+
+#### Sample Manifest 
+```ruby
+class cnos::vlag {
+  cnos_vlag { '2':
+    ensure          => 'present',
+    status          => 'disable',
+    port_aggregator => 20,
+  }
+}
+
+```
+
+### cnos::cnos::vlan_intf
+
+Handles Vlan -Interface mapping on Lenovo cnos.
+For details regarding parameters, please refer to [cnos_vlan_intf](#cnos_vlan_intf).
+
+#### Sample Manifest 
+```ruby
+class cnos::vlan_intf {
+  cnos_vlan_intf { 'Ethernet1/92':
+    ensure          => 'present',
+    bridgeport_mode => 'trunk',
+    pvid            => 1,
+    vlans           => [10],
+  }
+}
+```
+
+### cnos::cnos::vlan
+
+Handles VLAN on Lenovo cnos.
+For details regarding parameters, please refer to [cnos_vlan](#cnos_vlan).
+
+#### Sample Manifest 
+```ruby
+class cnos::vlan {
+  cnos_vlan { '11':
+    ensure      => 'present',
+    admin_state => 'down',
+    vlan_name   => 'test11',
+  }
+}
+
+```
+
+### cnos::cnos::vrrp
+
+Handles Vrrp on Lenovo cnos.
+
+For details regarding parameters, please refer to [cnos_vrrp](#cnos_vrrp).
+
+#### Sample Manifest 
+```ruby
+class cnos::vrrp {
+  cnos_vrrp{ '1' :
+    ensure            => present,
+    prio              => 99,
+    vr_id             => 1,
+    if_name           => 'Ethernet1/11',
+    preempt           => 'no',
+    admin_state       => 'down',
+    ip_addr           => '1.1.1.2',
+    switch_back_delay => 1,
+    accept_mode       => 'no',
+    v2_compt          => 'no',
+    ad_intvl          => 200,
+  }
+}
+
 ```
 
 #### Types
