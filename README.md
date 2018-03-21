@@ -85,7 +85,7 @@ At this point, your set up should be up and fielding requests.
 
 #### Public classes
 
-* cnos: Main class, includes all other classes.
+TODO
 
 #### Private classes
 
