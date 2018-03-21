@@ -748,16 +748,16 @@ Specifies the state of vlan.
 Valid options: 'up' or 'down'.
 
 
+## Limitations
 
-### Limitations
+Lenovo CNOS version v10.4 or greater.
+Puppet Enterprise: 5.4.0 or greater.
 
-ToDO
+## Development
 
-### Development
+Puppet modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. Please follow our guidelines when contributing changes.
+For more information, see our [module contribution guide.](https://docs.puppetlabs.com/forge/contributing.html)
 
-ToDO
+## Support
 
-### Support
-
-
-ToDO
+Support for this module is provided by Lenovo.  To file an issue, please visit this [link](https://github.com/lenovo/puppet-cnos/issues/new)
