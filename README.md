@@ -85,11 +85,39 @@ At this point, your set up should be up and fielding requests.
 
 #### Public classes
 
-TODO
+* [cnos::arp](#cnos::arp): Handles Arp on Lenovo CNOS for interfaces..
+* [cnos::arp_sys](#cnos::arp_sys): Handles  Arp on Lenovo CNOS for system.
+* [cnos::bst_feature](#cnos::bst_feature): Handles  BST feature on Lenovo CNOS. Requires cnos-rbapi.
+* [cnos::bst_track](#cnos::bst_track): Handles BST Tracking on Lenovo CNOS.
+* [cnos::ip_intf](#cnos::ip_intf): Handles IP interfaces on Lenovo CNOS
+* [cnos::lacp](#cnos::lacp): Handles Lacp on Lenovo CNOS.
+* [cnos::lag](#cnos::lag): Handles lag on Lenovo CNOS
+* [cnos::sys](#cnos::sys): Handles Telemetry System properties on Lenovo CNOS
+* [cnos::vlag_health](#cnos::vlag_health): Handles Vlag_health on Lenovo CNOS
+* [cnos::vlag_isl](#cnos::vlag_isl): Handles vlag isl on Lenovo cnos
+* [cnos::vlag](#cnos::vlag): Handles Vlags on Lenovo cnos.
+* [cnos::vlan_intf](#cnos::vlan_intf): Handles Vlan -Interface mapping on Lenovo cnos.
+* [cnos::vlan](#cnos::vlan): Handles VLAN on Lenovo cnos.
+* [cnos::vrrp](#cnos::vrrp): Handles Vrrp on Lenovo cnos.
+
 
 #### Private classes
 
 ToDO
+
+### cnos::arp
+
+Handles Arp on Lenovo CNOS for interfaces.
+For details regarding parameters please refer to [cnos_arp](#cnos_arp).
+
+#### Sample Manifest 
+```ruby
+class cnos::arp {
+  cnos_arp{'Ethernet1/13':
+    ageout_time => 1500,
+  }
+}
+```
 
 #### Types
 
