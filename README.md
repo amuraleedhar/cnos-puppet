@@ -7,7 +7,7 @@
 1. [Setup - The basics of getting started with cnos](#setup)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-1. [Limitations - OS compatibility, etc.](#limitations)
+1. [Limitations - CNOS Versions, GEM dependency, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 
 
@@ -752,6 +752,7 @@ Valid options: 'up' or 'down'.
 
 Lenovo CNOS version v10.4 or greater.
 Puppet Enterprise: 5.4.0 or greater.
+Lenovo Ruby Gem (lenovo-rbapi) : 0.0.5 or greater
 
 ## Development
 
