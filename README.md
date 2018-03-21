@@ -85,8 +85,7 @@ At this point, your set up should be up and fielding requests.
 
 #### Public classes
 
-* [cnos%3A%3Aarp](#cnos%3A%3Aarp): Test
-* [cnos::arp](#cnos::arp): Handles Arp on Lenovo CNOS for interfaces..
+* [cnos::arp](#cnos%3A%3Aarp): Handles Arp on Lenovo CNOS for interfaces..
 * [cnos::arp_sys](#cnos::arp_sys): Handles Arp on Lenovo CNOS for system.
 * [cnos::bst_feature](#cnos::bst_feature): Handles  BST feature on Lenovo CNOS. Requires cnos-rbapi.
 * [cnos::bst_track](#cnos::bst_track): Handles BST Tracking on Lenovo CNOS.
