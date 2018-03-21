@@ -85,7 +85,6 @@ At this point, your set up should be up and fielding requests.
 
 #### Public classes
 
-* [cnos::arp](#cnos::arp): Handles Arp on Lenovo CNOS for interfaces.
 ### cnos::arp
 
 Handles Arp on Lenovo CNOS for interfaces.
@@ -99,7 +98,6 @@ class cnos::arp {
   }
 }
 ```
-* [cnos::arp_sys](#cnos%3A%3Aarp_sys): Handles Arp on Lenovo CNOS for system.
 ### cnos::arp_sys
 
 Handles Arp on Lenovo CNOS for system
@@ -113,27 +111,6 @@ class cnos::arp_sys {
   }
 }
 ```
-* [cnos::bst_feature](#cnos%3A%3Abst_feature): Handles  BST feature on Lenovo CNOS. Requires cnos-rbapi.
-* [cnos::bst_track](#cnos%3A%3Abst_track): Handles BST Tracking on Lenovo CNOS.
-* [cnos::ip_intf](#cnos%3A%3Aip_intf): Handles IP interfaces on Lenovo CNOS
-* [cnos::lacp](#cnos%3A%3Alacp): Handles Lacp on Lenovo CNOS.
-* [cnos::lag](#cnos%3A%3Alag): Handles lag on Lenovo CNOS
-* [cnos::sys](#cnos%3A%3Asys): Handles Telemetry System properties on Lenovo CNOS
-* [cnos::vlag_health](#cnos%3A%3Avlag_health): Handles Vlag_health on Lenovo CNOS
-* [cnos::vlag_isl](#cnos%3A%3Avlag_isl): Handles vlag isl on Lenovo cnos
-* [cnos::vlag](#cnos%3A%3Avlag): Handles Vlags on Lenovo cnos.
-* [cnos::vlan_intf](#cnos%3A%3Avlan_intf): Handles Vlan -Interface mapping on Lenovo cnos.
-* [cnos::vlan](#cnos%3A%3Avlan): Handles VLAN on Lenovo cnos.
-* [cnos::vrrp](#cnos%3A%3Avrrp): Handles Vrrp on Lenovo cnos.
-
-
-#### Private classes
-
-None.
-
-
-
-
 ### cnos::bst_feature
 
 Handles  BST feature on Lenovo CNOS.
@@ -359,6 +336,11 @@ class cnos::vrrp {
 }
 
 ```
+
+#### Private classes
+
+None.
+
 
 #### Types
 
